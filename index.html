@@ -597,6 +597,32 @@
 					<p>当你 try 代码块执行到setTimeout的时候，把它丢到列队里，并没有去执行，而是先执行的 finally 代码块，等 finally 执行完了，isBatchingUpdates又变为了 false，导致最后去执行队列里的 setState 时候， requestWork 走的是和原生事件一样的 expirationTime === Sync if分支，所以表现就会和原生事件一样，可以同步拿到最新的state值。</p>
 				</section>
 				<section>
+					<h6>setState的参数和return值</h6>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							this.setState((prevState) => {
+								return { count: 0 }
+							})
+							console.log(this.state.count); // 0
+							this.setState((prevState) => {
+								return { count: prevState.count + 1 } // 上一个 setState 的返回是 count 为 0，当前返回 1
+							})
+							console.log(this.state.count); // 0
+							this.setState((prevState) => {
+								return { count: prevState.count + 2 } // 上一个 setState 的返回是 count 为 1，当前返回 3
+							})
+							console.log(this.state.count); // 0
+
+							//最终获取count值,和第一个例子配合看
+							click () => {
+								console.log(this.state.count) //3
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
 					<h6>总结</h6>
 					<p>1.setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。</p>
 					<p>2.setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。</p>
@@ -607,6 +633,10 @@
 								count:this.state.count + 1
 							},() => {
 								console.log(this.state.count)
+							})
+
+							this.setState((prevState)=>{
+
 							})
 							```
 						</textarea>
