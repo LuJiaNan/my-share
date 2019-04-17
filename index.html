@@ -56,7 +56,11 @@
 						3. PropTypes(类型检测)
 						4. Error Boundaries(错误边界)
 						5. Context(上下文)
-						6. ...
+						6. 装饰器
+						7. 高阶组件
+						8. key
+						...
+						n. ...
 					</script>
 				</section>
 
@@ -881,16 +885,16 @@
 							}
 							class Father extends React.Component{
 								state = {
-								card: [{
-									title: 'card1',
-									content: 'content1'
-								},{
-									title: 'card2',
-									content: 'content2'
-								},{
-									title: 'card3',
-									// content: 'content3'
-								}]
+									card: [{
+										title: 'card1',
+										content: 'content1'
+									},{
+										title: 'card2',
+										content: 'content2'
+									},{
+										title: 'card3',
+										// content: 'content3'
+									}]
 								}
 								renderCards() {
 									return this.state.card && this.state.card.map((card) => {
@@ -1104,9 +1108,9 @@
 									return (
 										<ThemeContext.Consumer>
 											{context => (
-											<h1 style={{background: context.background, color: context.color}}>
-												{this.props.children}
-											</h1>
+												<h1 style={{background: context.background, color: context.color}}>
+													{this.props.children}
+												</h1>
 											)}
 										</ThemeContext.Consumer>
 									);
@@ -1247,6 +1251,53 @@
 					3. 当 props 改变或是 setState 被调用，getChildContext 也会被调用，生成新的 context，但 shouldComponentUpdate 返回的 false 会 block 住 context，导致没有更新，老Api有解决方法，比较麻烦(新api已解决)。
 					4. createContext从父组件中剥离，在需要获取context的地方引入，当context对象有多个的时候，管理起来就会比较麻烦。
 					5. Provider和Consumer这种组件包裹的方式比较符合react的思想。
+				</section>
+				<section data-markdown>
+					###### Decorator(装饰器)
+				</section>
+				<section data-markdown>
+					###### HOC(高阶组件)
+				</section>
+				<section data-markdown>
+					###### react遍历中key的作用
+					<textarea data-templete>
+						code1:
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+							
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+							<li>Connecticut</li>
+						</ul>
+						
+						code2:
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+							
+						<ul>
+							<li>Connecticut</li>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+
+						code3:
+						<ul>
+							<li key="Duke">Duke</li>
+							<li key="Villanova">Villanova</li>
+						</ul>
+						  
+						<ul>
+							<li key="Connecticut">Connecticut</li>
+							<li key="Duke">Duke</li>
+							<li key="Villanova">Villanova</li>
+						</ul>
+					</textarea>
+					<p>加上key可以提高react在遍历出的列表更新时重渲染的性能，react的局部更新特点</p>
 				</section>
 			</div>
 
