@@ -28,7 +28,7 @@ mount：完全渲染，它将组件渲染加载成一个真实的DOM节点，用
 toBe,toEqual,toStrictEqual,equals    equals用法:expect(wrapper.equals(<div className="foo bar" />)).to.equal(true);
 日志打印不出来的解决方案： 
 1.npm run test /src/modules/.../test.js
-2.后面多加几个用例，靠前的用例中的console就可以输出
+2.写几个相同的用例
 
 mock.calls 用法https://www.jianshu.com/p/6f75b48af8b9
 
@@ -37,7 +37,53 @@ wrapper.debug() 可以打印整个组件的HTML-string数据，页面测试时�
 const enzymeWrapper = shallow(<Detail {...props}/>,{disableLifecycleMethods: true}) 配置禁用react的componentDidMount这一生命周期，防止测试过程中初始化调用的方法影响测试结果,默认是false
 
 
+beforeAll,beforeEach,afterAll,afterEach
+
+beforeAll(() => console.log('1 - beforeAll')); 1
+afterAll(() => console.log('1 - afterAll')); 12
+beforeEach(() => console.log('1 - beforeEach')); 2 6
+afterEach(() => console.log('1 - afterEach')); 4 10
+test('', () => console.log('1 - test')); 3
+describe('Scoped / Nested block', () => {
+  beforeAll(() => console.log('2 - beforeAll')); 5
+  afterAll(() => console.log('2 - afterAll')); 11
+  beforeEach(() => console.log('2 - beforeEach')); 7
+  afterEach(() => console.log('2 - afterEach')); 9
+  test('', () => console.log('2 - test')); 8
+});
+
+// 1 - beforeAll
+// 1 - beforeEach
+// 1 - test
+// 1 - afterEach
+// 2 - beforeAll
+// 1 - beforeEach
+// 2 - beforeEach
+// 2 - test
+// 2 - afterEach
+// 1 - afterEach
+// 2 - afterAll
+// 1 - afterAll
+
+
 测试工具: 
 
 https://www.npmjs.com/package/puppeteer
 https://www.npmjs.com/package/zombie
+
+
+mock用例之前先看官方的例子
+const mockCallback = jest.fn(x => 42 + x);
+forEach([0, 1], mockCallback);
+
+// The mock function is called twice
+expect(mockCallback.mock.calls.length).toBe(2);
+
+// The first argument of the first call to the function was 0
+expect(mockCallback.mock.calls[0][0]).toBe(0);
+
+// The first argument of the second call to the function was 1
+expect(mockCallback.mock.calls[1][0]).toBe(1);
+
+// The return value of the first call to the function was 42
+expect(mockCallback.mock.results[0].value).toBe(42);
