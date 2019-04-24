@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js – The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style>
+			section{
+				text-align:left;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>React</h1>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						1. 生命周期
+						2. setState
+						3. PropTypes(类型检测)
+						4. Error Boundaries(错误边界)
+						5. Context(上下文)
+						6. 装饰器
+						7. 高阶组件
+						8. key
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						<p>16.3之前的生命周期</p>
+						<img data-src="images/react-lifecycle.png"/>
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						<a target='_blank' href='http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/'>16.3之后的生命周期</a>
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						<h6>componentDidMount和componentWillMount</h6>
+						1. setState如果写在componentDidMount的话，则会额外触发一次render，componentWillMount则不会有这种问题
+						2. 对于异步操作，都会再触发一次render，相同时间的操作，同时渲染完成
+						3. react服务端渲染，在服务端上 Component 生命周期只会到 componentWillMount ，客户端则是完整的，请求放在componentWillMount中会导致两次请求，服务端一次，客户端一次
+						4. canvas svg 等需要操作dom的初始化操作都必须在componentDidMount中
+						5. 在 React 的设计中，componentWillMount 被执行并不能保证 componentWillUnmount 被执行，但是，componentDidMount 被执行是能保证 componentWillUnmount 被执行的。因此，建议在添加事件监听的时候使用 componentDidMount 函数
+					</script>
+				</section>
+				<section>
+					<h6>2. componentWillReceiveProps</h6>
+					<section>
+						<h7>在实际开发过程中，如果<strong>父组件改变了子组件的属性值</strong>，并且，<strong>子组件是通过自身state来渲染页面</strong>的话，就必须在子组件的componentWillReceiveProps中调用，setState(nextProps)</h7>
+						<p>example</p>
+						<section data-markdown>
+							<textarea data-templete>
+								```
+								// father
+								state = {
+									name: ''
+								}
+								handleChange = (event) => {
+									this.setState({
+										name: event.currentTarget.value 
+									})
+								}
+								render() {
+									const A = () => (
+										<ChildA name={this.state.name}/>
+									)
+									return (
+										<React.Fragment>
+											<input type="text" onChange={ this.handleChange } />
+											<Row>
+												<Col span={1}> childA: </Col>
+												<Col span={1}><ChildA name={this.state.name}/></Col>
+											</Row>
+											<Row>
+												<Col span={1}>A:</Col>
+												<Col span={1}><A/></Col>
+											</Row>
+										</React.Fragment>
+									);
+								}
+
+
+								//child
+								componentWillMount = () => {
+									this.setState({
+										name : this.props.name
+									})
+								}
+								componentWillReceiveProps = (nextProps) =>{
+									if(nextProps.name != this.props.name){
+										this.setState({
+											name: nextProps.name
+										})
+									}
+								}
+								render() {
+									return this.state.name
+								}
+								```
+							</textarea>
+						</section>
+					</section>		
+				</section>
+					<section>
+						<h6>并不只是props改变才会触发componentWillReceiveProps，父组件渲染就会执行，第一次渲染不触发,如果给每一个render函数增加特定key，react会认为这三次都是不同的渲染，都被定义为初始化第一次渲染，这种情况下不不会进入componentWillReceiveProps中。</h6>
+						<h7>example 1</h7>
+						<section data-markdown>
+							<textarea data-templete>
+								```
+									class Component extends React.Component {
+										componentWillReceiveProps(nextProps) {
+											console.log('componentWillReceiveProps', nextProps.data.name);
+										}
+										render() {
+											return <div>{this.props.data.name}!</div>;
+										}
+									}
+										
+									var container = document.getElementById('root');
+									
+									var mydata = {name: 'first-render'};
+									ReactDOM.render(<Componentt data={mydata}/>, container);
+									// ReactDOM.render(<Componentt data={mydata} key='1'/>, container);
+									mydata.name = 'second-render'
+									ReactDOM.render(<Componentt data={mydata}/>, container);
+									// ReactDOM.render(<Componentt data={mydata} key='2'/>, container);
+									mydata.name = 'third-render'
+									ReactDOM.render(<Componentt data={mydata}/>, container);
+									// ReactDOM.render(<Componentt data={mydata} key='3'/>, container);
+								```
+							</textarea>
+							<span class="fragment">
+								<p>third-render!</p>
+							</span>
+							<span class="fragment">
+								<p>componentWillReceiveProps test2</p>
+								<p>componentWillReceiveProps test3</p>
+							</span>
+						</section>
+					</section>
+					<section >
+						<h7>example 2</h7>
+						<section data-markdown>
+							<textarea data-templete>
+								```
+								class Component extends React.Component {
+									componentWillReceiveProps(nextProps) {
+										console.log('componentWillReceiveProps', nextProps.data.name);
+									}
+									render() {
+										return <div>Name {this.props.data.name}!</div>;
+									}
+								}
+								
+								var container = document.getElementById('root');
+								
+								var mydata = {name: 'test'};
+								ReactDOM.render(<Component data={mydata}/>, container);
+								ReactDOM.render(<Component data={mydata}/>, container);
+								ReactDOM.render(<Component data={mydata}/>, container);
+								```
+							</textarea>
+							<span class="fragment">
+								<p>Name test!</p>
+							</span>
+							<span class="fragment">
+								<p>componentWillReceiveProps test</p>
+								<p>componentWillReceiveProps test</p>
+							</span>
+						</section>
+					</section>
+				</section>
+				<section>
+					<h6>3. componentWillMount和componentWillUnmount</h6>
+					<h7>卸载一个组件，加载另一个组件，componentWillMount的执行优先级大于componentWillUnmount</h7>
+					<p>自己的一个应用场景，卸载时需要初始化一个localStorage，清除在当前组件的状态，并在需要加载的组件上拿到这个locaStorage，这时在componentWillMount中获取的状态还是未初始化的</p>
+					<p>componentWillMount --> render --> componentWillUnmount --> componentDidMount</p>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class App extends Component {
+								state = { show: 'a' }
+								test = () => {
+									this.setState({
+										show: 'b'
+									})
+								}
+								render() {
+									return (
+										<React.Fragment>
+											<div onClick={this.test}>button</div>
+											{  this.state.show === 'a' ? <ComponentA/> : <ComponentB/>}
+										</React.Fragment>
+										
+									);
+								}
+							}
+
+							class ComponentA extends React.Component {
+								componentWillUnmount(){
+									localStorage.setItem('test','willUnmount')
+								}
+							}
+
+							class ComponentB extends React.Component {
+								componentWillMount(){
+									console.log(localStorage.getItem('test'))
+								}
+							}
+							```
+						</textarea>
+						<span class="fragment">
+							<p>null</p>
+						</span>
+					</section>
+				</section>
+				<section>
+					<section>
+						<p>shouldComponentUpdate</p>
+						<p>问题：</p>
+						<p>1.setState()函数在任何情况下都会导致组件重渲染吗？如果setState()中参数还是原来没有发生任何变化的state呢？</p>
+						<p>2.如果组件的state没有变化，并且从父组件接受的props也没有变化，那它就一定不会重渲染吗？</p>
+						<p>3.如果1，2两种情况下都会导致重渲染，我们该如何避免这种冗余的操作，从而优化性能？</p>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+						```
+						class Test extends React.Component{
+							constructor(props) {
+								super(props);
+								this.state = {
+									Number:1//设state中Number值为1
+								}
+							}
+							//这里调用了setState但是并没有改变setState中的值
+							handleClick = () => {
+								const preNumber = this.state.Number
+								this.setState({
+									Number:preNumber
+								})
+							}
+							render(){
+								console.log('我被渲染了')
+								return(
+									<h1 onClick = {this.handleClick}>
+										{this.state.Number}
+									</h1>
+								)
+							}
+						}
+						```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+						```
+						class Test extends React.Component{
+							constructor(props) {
+								super(props);
+								this.state = {
+									Number:1//设state中Number值为1
+								}
+							}
+							//这里调用了setState但是并没有改变setState中的值
+							handleClick = () => {
+								const preNumber = this.state.Number
+								this.setState({
+									Number:preNumber
+								})
+							}
+
+							shouldComponentUpdate = (nextProps, nextState) => {
+								if(nextProps.Number === this.props.Number){
+									return false
+								}
+								return true
+							}
+
+							render(){
+								console.log('我被渲染了')
+								return(
+									<h1 onClick = {this.handleClick}>
+										{this.state.Number}
+									</h1>
+								)
+							}
+						}
+						```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+						```
+						class Test extends React.Component{
+							constructor(props) {
+								super(props);
+								this.state = {
+									Number:1,//设state中Number值为1
+									propsNum: 0
+								}
+							}
+							//这里调用了setState但是并没有改变setState中的值
+							handleClick = () => {
+								const preNumber = this.state.Number
+								this.setState({
+									Number:preNumber
+								})
+							}
+							render(){
+								console.log('我被渲染了')
+								return(
+									<h1 onClick = {this.handleClick}>
+										<Child propsNum={this.state.propsNum}/>
+									</h1>
+								)
+							}
+						}
+						
+						function Child(props) {
+							console.log('子组件被渲染了')
+							return (
+								<div>
+									{props.propsNum}
+								</div>
+							)
+						}
+						```
+						</textarea>
+					</section>
+					<section data-markdown>
+						###### PureComponent
+						<p>每当props或者state改变时，PureComponent都会对props和state进行比较，判断是否重新渲染</p>
+						<textarea data-templete>
+						```
+						class YouComponent extends PureComponent {
+							render() {
+								// ...
+							}
+						}
+						```
+						</textarea>
+					</section>
+					<section><p>在未来React可能会将shouldComponentUpdate作为一个线索而不是一个严格指令，返回false可能仍然使得组件重渲</p></section>
+				</section>
+				<section>
+					<p>componentDidCatch</p>
+					<p>在渲染过程中发生错误时会被调用</p>
+				</section>
+				<section>
+					<h6>3. getDerivedStateFromProps和getSnapshotBeforeUpdate</h6>
+					<h7>16.3新增的两个生命周期</h7>
+				</section>
+				<section>
+					<p>getDerivedStateFromProps</p>
+					<p>(1).这个生命周期钩子在16.3是被设计成初始化、父组件更新和接收到props才会触发，之后修改为只要渲染就会触发，也就是初始化和更新阶段都会触发，所以不应该在内部使用setState</p>
+					<p>(2).如果不需要修改任何状态更新，必须return 一个null值</p>
+					<p>(3).不能同时和componentWillMount,componentWillReceiveProps以及componentWillUpdate一起使用(UNSAFE)</p>
+					<p>(4).静态方法，不能使用this</p>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							static getDerivedStateFromProps(nextProps, prevState) {
+								const {type} = nextProps;
+								// 当传入的type发生变化的时候，更新state
+								if (type !== prevState.type) {
+									return {
+										type,
+									};
+								}
+								// 否则，对于state不进行任何操作
+								return null;
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<p>getSnapshotBeforeUpdate</p>
+					<p>在即将更新之前被调用，返回值被当作第三个参数传递给componentDidUpdate。可用于保存即将更新之前最后的状态</p>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class ScrollingList extends React.Component {
+								listRef = React.createRef();
+							  
+								getSnapshotBeforeUpdate(prevProps, prevState) {
+								  if (prevProps.list.length < this.props.list.length) {
+									return this.listRef.current.scrollHeight;
+								  }
+								  return null;
+								}
+							  
+								componentDidUpdate(prevProps, prevState, snapshot) {
+								  if (snapshot !== null) {
+									this.listRef.current.scrollTop += this.listRef.current.scrollHeight - snapshot;
+								  }
+								}
+							  
+								render() {
+								  return (
+									<div ref={this.listRef}>{/* ...contents... */}</div>
+								  );
+								}
+							}
+							```
+						</textarea>
+					</section>
+					<p>16.3之后可以使用React.createRef()来创建ref。将其赋值给一个变量，通过ref挂载在dom节点或组件上，该ref的current属性就能拿到dom节点或组件的实例</p>
+				</section>
+				<section>
+					<h6>setState</h6>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class App extends React.Component {
+								state = { val: 0 }
+								
+								componentDidMount() {
+									this.setState({ val: this.state.val + 1 })
+									console.log(this.state.val)
+								
+									this.setState({ val: this.state.val + 1 })
+									console.log(this.state.val)
+								
+									setTimeout(_ => {
+										this.setState({ val: this.state.val + 1 })
+										console.log(this.state.val);
+									
+										this.setState({ val: this.state.val + 1 })
+										console.log(this.state.val)
+									}, 0)
+								}
+								
+								render() {
+									return <div>{this.state.val}</div>
+								}
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h6>合成事件中的setState</h6>
+						<p>合成事件</p>
+						<p>React并不是将click事件直接绑定在dom上面，而是采用事件冒泡的形式冒泡到document上面，然后React将事件封装给正式的函数处理运行和处理。如果DOM上绑定了过多的事件处理函数，整个页面响应以及内存占用可能都会受到影响。React为了避免这类DOM事件滥用，同时屏蔽底层不同浏览器之间的事件系统差异，实现了一个中间层——SyntheticEvent。当用户在为onClick添加函数时，React并没有将Click时间绑定在DOM上面。而是在document处监听所有支持的事件，当事件发生并冒泡至document处时，React将事件内容封装交给中间层SyntheticEvent（负责所有事件合成），所以当事件触发的时候，对使用统一的分发函数dispatchEvent将指定函数执行。</p>
+						<p>react绑定在dom上的事件比如onClick，onChange都属于合成事件。</p>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							function requestWork(root: FiberRoot, expirationTime: ExpirationTime) {
+								addRootToSchedule(root, expirationTime);
+								if (isRendering) {
+								  // Prevent reentrancy. Remaining work will be scheduled at the end of
+								  // the currently rendering batch.
+								  return;
+								}
+							  
+								if (isBatchingUpdates) { // 如果是合成事件的更新的话
+								  return;
+								}
+							  
+								// TODO: Get rid of Sync and use current time?
+								if (expirationTime === Sync) {
+								  performSyncWork();
+								} else {
+								  scheduleCallbackWithExpirationTime(root, expirationTime);
+								}
+							}
+
+
+							function interactiveUpdates$1(fn, a, b) {
+								if (isBatchingInteractiveUpdates) {
+								  return fn(a, b);
+								}
+								if (!isBatchingUpdates && !isRendering && lowestPendingInteractiveExpirationTime !== NoWork) {
+								  // Synchronously flush pending interactive updates.
+								  performWork(lowestPendingInteractiveExpirationTime, false, null);
+								  lowestPendingInteractiveExpirationTime = NoWork;
+								}
+								var previousIsBatchingInteractiveUpdates = isBatchingInteractiveUpdates;
+								var previousIsBatchingUpdates = isBatchingUpdates;
+								isBatchingInteractiveUpdates = true;
+								isBatchingUpdates = true;  // 把requestWork中的isBatchingUpdates标识改为true
+								try {
+								  return fn(a, b); //setState之后的console.log()相当于try代码块
+								} finally {
+								  isBatchingInteractiveUpdates = previousIsBatchingInteractiveUpdates;
+								  isBatchingUpdates = previousIsBatchingUpdates;
+								  if (!isBatchingUpdates && !isRendering) {
+									performSyncWork(); //执行更新逻辑
+								  }
+								}
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<h6>生命周期中的setState</h6>
+					<p>类似合成事件。当componentDidmount执行的时候，react内部并没有更新，执行完componentDidmount后才去commitUpdateQueue更新。其他周期函数也一样。</p>
+				</section>
+				<section>
+					<h6>原生事件中的setState</h6>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class App extends Component {
+
+								state = { val: 0 }
+							  
+								changeValue = () => {
+								  this.setState({ val: this.state.val + 1 })
+								  console.log(this.state.val) // 输出的是更新后的值 --> 1
+								}
+							  
+							   componentDidMount() {
+								  document.body.addEventListener('click', this.changeValue, false)
+							   }
+							  
+								render() {
+								  return (
+									<div>
+									  {`Counter is: ${this.state.val}`}
+									</div>
+								  )
+								}
+							}
+
+
+							if (expirationTime === Sync) {
+								performSyncWork();
+							} else {
+								scheduleCallbackWithExpirationTime(root, expirationTime);
+							}
+							```
+						</textarea>
+					</section>
+					<p>原生事件的setState逻辑比较简单，此时requestWork中的expirationTime为同步，直接走performSyncWork更新，所以能同步拿到state值</p>
+				</section>
+				<section>
+					<h6>定时器内的setState</h6>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							try {
+								return fn(a, b); //setState之后的setTimeout相当于try代码块
+							} finally {
+								isBatchingInteractiveUpdates = previousIsBatchingInteractiveUpdates;
+								isBatchingUpdates = previousIsBatchingUpdates;
+								if (!isBatchingUpdates && !isRendering) {
+								  performSyncWork(); //执行更新逻辑
+								}
+							}
+							```
+						</textarea>
+					</section>
+					<p>当你 try 代码块执行到setTimeout的时候，把它丢到列队里，并没有去执行，而是先执行的 finally 代码块，等 finally 执行完了，isBatchingUpdates又变为了 false，导致最后去执行队列里的 setState 时候， requestWork 走的是和原生事件一样的 expirationTime === Sync if分支，所以表现就会和原生事件一样，可以同步拿到最新的state值。</p>
+				</section>
+				<section>
+					<h6>setState的参数和return值</h6>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							this.setState((prevState) => {
+								return { count: 0 }
+							})
+							console.log(this.state.count); // 0
+							this.setState((prevState) => {
+								return { count: prevState.count + 1 } // 上一个 setState 的返回是 count 为 0，当前返回 1
+							})
+							console.log(this.state.count); // 0
+							this.setState((prevState) => {
+								return { count: prevState.count + 2 } // 上一个 setState 的返回是 count 为 1，当前返回 3
+							})
+							console.log(this.state.count); // 0
+
+							//最终获取count值,和第一个例子配合看
+							click () => {
+								console.log(this.state.count) //3
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<h6>总结</h6>
+					<p>1.setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。</p>
+					<p>2.setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。</p>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							this.setState({
+								count:this.state.count + 1
+							},() => {
+								console.log(this.state.count)
+							})
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<h6>Typechecking With PropTypes(类型检测)</h6>
+				</section>
+				<section>
+					<p>javascript作为一种弱类型语言，是自由的，但同时也会带来许多烦恼。很多时候他并不会像C和java这些“好孩子”那样循规蹈矩，javascript就是这么一个熊孩子。</p>
+					<p>场景一：运行时候控制台报错：uncaught error，这尤其令人恼火的是系统告诉我们有错误但是又不告诉我们错误发生在哪里。<span style="color:brown">试想一下，你到一个地方旅游迷了路，一个当地的熊孩子一直笑嘻嘻地跟在你后头告诉你：“你走错啦！”。但是不告诉你应该怎么走，你会不会很想揍他一顿？（╬￣皿￣）</span></p>
+					<p>场景二：运行时报了确定的错误，然而我们发现这TM完全是一条驴唇不对马嘴的错误报告。甚至于去stackoverflow上寻找答案，却发现提问的错误场景跟自己的根本是两码事。<span style="color:brown">让我们回到1中场景，假如这个熊孩子很好心地告诉了你路线，结果你走到天黑发现被熊孩子狠狠得耍了，导致你不得不在大晚上露宿街头，你会不会比1中场景更想揍他一顿？（╬￣皿￣）</span></p>
+					<p>场景三：你主观地写错了了一个变量的类型，比如把字符串1写成数字1，但是系统“很好心”地不报错误提示。（我们都不需要特别的进行类型声明当然不会报告错误提示啦）而这却可能就是你接下来bug的源头。<span style="color:brown">让我们回到1，2中场景，假如这个熊孩子知道你这个外地人绝逼是走错路了，但当你问路：“我走对路了吗？”时候，他笑靥如花满面春风得点点头，让你充满信心充满希望得一条路走到黑。我想你此时的心情不会比1和2中的要好（╬￣皿￣）</span></p>
+					<h6>二中的情况比较难避免，一的话一般还会有其他提示信息可以追踪，三中的情况，完全可以用类型检测的方式加以避免。</h6>
+				</section>
+				<section>
+					<section>
+						<h7>prop-types就是对react组件中props对象中的变量进行类型检测的，因为props是react数据流的管道，我们通过prop-types就可以轻松监控react里大多数据的变量类型。在react15.5之后prop-types就从react中独立出来，成为了一个独立的包。</h7>
+						<p>npm install prop-types</p>
+						<section data-markdown>
+							<textarea data-templete>
+								```
+								yourComponent.propTypes = {
+									属性1：属性1的变量类型，
+									属性2：属性2的变量类型
+									//...
+								}
+								```
+							</textarea>
+						</section>
+					</section>
+					<section>
+						<p>我们通过props从父组件向子组件传递属性，你原本试图通过number，array和boolean这三个属性分别向Son中传递一个数字，数组和一个布尔型数值，但由于粗心把它们都写成了字符串，虽然渲染是正常的，但这可能会导致你接下来调用一些方法的时候发生错误，而系统并不提供任何提示。</p>
+						<section data-markdown>
+							<textarea data-templete>
+								```
+									import PropTypes from 'prop-types'
+									class Son extends React.Component{
+										render(){
+											return (
+												<div>
+													<p>{this.props.number}</p>
+													<p>{this.props.array}</p>
+													<p>{this.props.boolean}</p>
+												</div>
+											)
+										}
+									}
+									// 必须放在组件创建之后
+									Son.propTypes = {
+										number:PropTypes.number,
+										array:PropTypes.array,
+										boolean:PropTypes.bool
+									}
+									class Father extends React.Component{
+										render(){
+											return (
+												<Son
+													number = {'1'}
+													array = {'[1,2,3]'}
+													boolean = {'true'}
+												>
+											)
+										}
+									}
+								```
+							</textarea>
+						</section>
+					</section>
+					<section>
+						<p>当加上类型检测后，我们就能看到报的错误了，而且这个时候，报的错误包括错误的props属性名称，错误的变量类型，属性所在的组件名称，预期的正确的变量类型，错误代码的位置以及其他更详细的信息。</p>
+						<img data-src="images/error1.png"/>
+					</section>
+					<section data-markdown>
+						<p>无法捕捉类型为undefined和null的值的错误</p>
+						<textarea data-templete>
+							```
+							MyComponent.propTypes = {
+								// 你可以将属性声明为以下 JS 原生类型
+								optionalArray: PropTypes.array,
+								optionalBool: PropTypes.bool,
+								optionalFunc: PropTypes.func,
+								optionalNumber: PropTypes.number,
+								optionalObject: PropTypes.object,
+								optionalString: PropTypes.string,
+								optionalSymbol: PropTypes.symbol,
+								...
+							}
+							```
+						</textarea>
+						<textarea>
+							```
+							class Father extends React.Component{
+								render(){
+									return (
+										<Son
+											number = {null}
+											array = {null}
+											boolean = {null}
+										/>
+									)
+								}
+							}
+							```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<h6>通过isRequired检测props中某个必要的属性</h6>
+						<textarea data-templete>
+							```
+							Son.propTypes = {
+								number:PropTypes.number
+								// number:PropTypes.number.isRequired
+								// number:PropTypes.any.isRequired
+							}
+							```
+						</textarea>
+						<p>这段代码的作用是当你在props中写入number属性且number属性类型错误时给予报错提示，可如果你压根就没有写入number属性呢？没错，什么错误都不会报。这就是使用isRequired的必要性(any)</p>
+					</section>
+					<section>
+						<img data-src="images/error2.png"/>
+					</section>
+					<section data-markdown>
+						<h6>自定义检测</h6>
+						<textarea data-templete>
+							```
+							Son.propTypes = {
+								prop:function(props,propName,componentName){
+									if(/*判断条件*/){
+										return new Error(/*错误的参数*/)
+									}
+								}
+							}
+							```
+						</textarea>
+						<p>在属性prop的类型检测中，属性值可以是一个函数，props是包含prop的props对象，propName是prop的属性名，componentName是props所在的组件名称，函数的返回值是一个Error对象。</p>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class Son extends React.Component{
+								render(){
+									return (
+										<div>
+											{this.props.email}
+										</div>
+									)
+								}
+							}
+							Son.propTypes = {
+									email:function(props,propName,componentName){
+										if(!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(props[propName])){
+											return new Error('组件' + componentName+ '里的属性' + propName + '不符合邮箱的格式');
+										}
+									}
+							}
+							class Father extends React.Component{
+									render(){
+										return (
+											<div>
+												<Son email = {123456789}/>
+											</div>
+										)
+									}
+							}
+							```
+						</textarea>
+					</section>
+					<section>
+						<img data-src="images/error3.png"/>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							Table.propTypes = {
+								dataSource: PropTypes.array,
+								columns: PropTypes.array,
+								prefixCls: PropTypes.string,
+								useFixedHeader: PropTypes.bool,
+								rowSelection: PropTypes.object,
+								className: PropTypes.string,
+								size: PropTypes.string,
+								loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+								bordered: PropTypes.bool,
+								onChange: PropTypes.func,
+								locale: PropTypes.object,
+								dropdownPrefixCls: PropTypes.string
+							}
+							```
+						</textarea>
+					</section>
+					<section>
+						<img data-src="images/error4.png"/>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h6>Error Boundaries(错误边界)</h6>
+						<p>错误边界是用于捕获其子组件树 JavaScript 异常，记录错误并展示一个回退的 UI 的 React 组件，而不是整个组件树的异常。错误组件在渲染期间，生命周期方法内，以及整个组件树构造函数内捕获错误。</p>
+					</section>
+					<section>
+						<img data-src="images/noerror.png"/>
+					</section>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							class Son extends React.Component{
+								render(){
+									if(!this.props.card.title || !this.props.card.content){
+										throw new Error('I crashed!');
+									}
+									return (
+										<Col span={8}>
+											<Card title={this.props.card.title} bordered={false}>{this.props.card.content.toUpperCase()}</Card>
+										</Col>
+									)
+								}
+							}
+							
+							class ErrorBoundary extends React.Component{
+								constructor(props){
+									super(props)
+									this.state = {
+										hasError: false
+									}
+								}
+								componentDidCatch = (error, info) => {
+									//第一个参数指的是抛出的实际错误，第二个参数是指错误信息。
+									this.setState({
+										hasError: true
+									})
+								}
+								// static getDerivedStateFromError(error) {
+								//  	return { hasError: true };
+								// }
+								render () {
+									if(this.state.hasError){
+										return (
+											<Col span={8}>
+												<Card title='未知title' bordered={false}>未知content</Card>
+											</Col>
+										)
+									}
+									return this.props.children;
+								}
+							}
+							class Father extends React.Component{
+								state = {
+									card: [{
+										title: 'card1',
+										content: 'content1'
+									},{
+										title: 'card2',
+										content: 'content2'
+									},{
+										title: 'card3',
+										// content: 'content3'
+									}]
+								}
+								renderCards() {
+									return this.state.card && this.state.card.map((card) => {
+										return (
+											<ErrorBoundary key={card.title}>
+												<Son card={card}/>
+											</ErrorBoundary>
+										);
+									});
+								}
+								render(){
+									return (
+										<div style={{ background: '#ECECEC', padding: '30px' }}>
+											<Row gutter={16}>
+												{ this.renderCards() }
+											</Row>
+										</div>
+									)
+								}
+							}
+							```
+						</textarea>
+						<img data-src="images/errors.png"/>
+					</section>
+					<section>
+						<h6>错误边界 无法 捕获如下错误:</h6>
+						<p>事件处理</p>
+						<p>异步代码（例如setTimeout）</p>
+						<P>服务端渲染</P>
+						<p>错误边界自身抛出来的错误（而不是其子组件）</p>
+						<p>只有在正式环境下会被componentDidCatch住，开发环境下仍然会有错误提示。这是react的错误回退思路，在本地开发环境，尽量提醒开发者注意和修复错误。在正式环境为了防止线上ui全挂掉，会catch住错误。</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h6>Context(上下文)</h6>
+						<p>上下文(Context) 提供了一种通过组件树传递数据的方法，无需在每个级别手动传递 props 属性。</p>
+						<img data-src="images/context1.png"/>
+						<p>使用props或者state传递数据，数据自顶下流。</p>
+					</section>
+					<section>
+						<img data-src="images/context2.png"/>
+						<p>使用Context，可以跨越组件进行数据传递。</p>
+					</section>
+				</section>
+				<section data-markdown>
+					<textarea data-templete>
+						```
+						class Parent extends React.Component{
+							componentDidMount () {
+								getDb();
+								// getInstance();
+							}
+							render(){
+								return (
+									<A db={db}/>
+									// <A db={db} instance={instance}/>
+									// <A allData={data}/>
+								)
+							}
+						}
+
+						//A.js
+						class A extends React.Component{
+							render(){
+								return (
+									<B db={this.props.db}/>
+									// <B db={this.props.db} instance={this.props.instance}/>
+								)
+							}
+						}
+						//B.js
+						class B extends React.Component{
+							render(){
+								return (
+									<C db={this.props.db.type}/>
+									// <C dbType={this.props.db.type} instance={this.props.instance}/>
+								)
+							}
+						}
+						//C.js
+						class C extends React.Component{
+							render(){
+								return (
+									{this.props.dbType}
+								)
+							}
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+					###### 老的context Api
+					<textarea data-templete>
+						class ParentComponent extends React.Component {
+							// 声明Context对象属性
+							static childContextTypes = {
+								propA: PropTypes.string,
+								methodA: PropTypes.func
+							}
+							
+							// 返回Context对象，方法名是约定好的
+							getChildContext () {
+								return {
+									propA: 'propA',
+									methodA: () => 'methodA'
+								}
+							}
+							
+							render () {
+								return <MiddleComponent />
+							}
+						}
+
+						class MiddleComponent extends React.Component {
+							render () {
+								return <ChildComponent />
+							}
+						}
+
+						class ChildComponent extends React.Component {
+							// 声明需要使用的Context属性
+							static contextTypes = {
+							  propA: PropTypes.string,
+							  //   methodA: PropTypes.func
+							}
+							
+							render () {
+							  const {
+								propA,
+								methodA
+							  } = this.context
+							  
+							  console.log(`context.propA = ${propA}`)  // context.propA = propA
+							  console.log(`context.methodA = ${methodA}`)  // context.methodA = undefined
+							  
+							  return ...
+							}
+						}
+
+
+						// 对于无状态的子组件
+						const ChildComponent = (props, context) => {
+							const {
+							  propA
+							} = context
+							  
+							console.log(`context.propA = ${propA}`)  // context.propA = propA
+							  
+							return ...
+						}
+						
+						ChildComponent.contextProps = {
+							propA: PropTypes.string    
+						}
+					</textarea>
+				</section>
+				<section data-markdown>
+					##### context更新
+					###### 由于shouldComponentUpdate默认只监听props和state的变化，父组件的context更新可能会导致子组件未更新
+					<textarea data-templete>
+						class MiddleComponent extends React.Component {
+							static contextTypes = {
+								propA: PropTypes.string
+							}
+							shouldComponentUpdate (nextProps, nextState, nextContext) {
+								if(nextContext.propA !== this.context.propA){
+									return true
+								}
+							}
+							render () {
+								return <ChildComponent />
+							}
+						}
+					</textarea>
+				</section>
+				<section>
+					<h6>16.3之后新的context Api</h6>
+					<h7>Context包含两个组件，Provider和Consumer</h7>
+					<section data-markdown>
+						<textarea data-templete>
+							```
+							// 创建一个context对象，可以给定默认值
+							const ThemeContext = React.createContext({
+								background: 'red',
+								color: 'white'
+							});
+	
+							// value等同于getChildContext，传递一个对象
+							class ParentComponent extends React.Component {
+								render () {
+									return (
+									<ThemeContext.Provider value={{background: 'green', color: 'white'}}>
+										<MiddleComponent />
+									</ThemeContext.Provider>
+									);
+								}
+							}
+	
+							class MiddleComponent extends React.Component {
+								render () {
+									return (
+									<Title>Hello React Context API</Title>
+									);
+								}
+							}
+							
+							// Consumer的children必须是一个函数，context就是传入的一个value对象
+							class ChildComponent extends React.Component {
+								render () {
+									return (
+										<ThemeContext.Consumer>
+											{context => (
+												<h1 style={{background: context.background, color: context.color}}>
+													{this.props.children}
+												</h1>
+											)}
+										</ThemeContext.Consumer>
+									);
+								}
+							}
+							```
+						</textarea>
+					</section>
+				</section>
+
+				<section data-markdown>
+					[应用](https://192.168.240.123)
+					<textarea data-templete>
+						```
+						// dbContext.js
+						export const DbContext = React.createContext({
+							dbId: '',
+							dbType: '',
+							dbData: {}
+						});
+
+						// index.js
+						{(() => {
+							switch (this.props.step) {
+								case 0: return <StepFirst {...this.props} id={this.state.id} dbType={this.state.dbType} dbData={this.state.dbData}/>
+								case 1: return <StepSecond {...this.props} id={this.state.id} dbType={this.state.dbType} />
+								case 2: return <StepThird {...this.props}  id={this.state.id} dbType={this.state.dbType}/>
+								case 3: return <StepForth {...this.props}  id={this.state.id} dbType={this.state.dbType}/>
+								default: return null
+							}
+						})()}
+
+						// newIndex.js
+						<DbContext.Provider value={{
+								props: this.props, 
+								dbId: this.state.id,
+								dbType: this.state.dbType, 
+								dbData: this.state.dbData
+							}}>
+							{(() => {
+								switch (this.props.step) {
+									case 0: return <StepFirst/>
+									case 1: return <StepSecond/>
+									case 2: return <StepThird/>
+									case 3: return <StepForth/>
+									default: return null
+								}
+							})()}
+						</DbContext.Provider>
+
+						//dbInfo.js
+						import { DbContext } from './dbContext'
+						<DbContext.Consumer>
+							{
+								context => (
+									<Table dataSource={context.dbData} columns={this.columns}/>
+								)
+							}
+						</DbContext.Consumer>
+
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+					##### context的应用
+					<textarea data-templete>
+						// Router.js
+						Router.prototype.getChildContext = function getChildContext() {
+							return {
+							  router: _extends({}, this.context.router, {
+								history: this.props.history,
+								route: {
+								  location: this.props.history.location,
+								  match: this.state.match
+								}
+							  })
+							};
+						};
+						...
+						Router.contextTypes = {
+							router: PropTypes.object
+						};
+						Router.childContextTypes = {
+							router: PropTypes.object.isRequired
+						};
+
+						// Route.js
+						Route.prototype.getChildContext = function getChildContext() {
+							return {
+							  router: _extends({}, this.context.router, {
+								route: {
+								  location: this.props.location || this.context.router.route.location,
+								  match: this.state.match
+								}
+							  })
+							};
+						};
+						...
+						Route.contextTypes = {
+							router: PropTypes.shape({
+							  history: PropTypes.object.isRequired,
+							  route: PropTypes.object.isRequired,
+							  staticContext: PropTypes.object
+							})
+						};
+						Route.childContextTypes = {
+							router: PropTypes.object.isRequired
+						};
+
+						// Link.js
+						Link.contextTypes = {
+							router: PropTypes.shape({
+							  history: PropTypes.shape({
+								push: PropTypes.func.isRequired,
+								replace: PropTypes.func.isRequired,
+								createHref: PropTypes.func.isRequired
+							  }).isRequired
+							}).isRequired
+						};
+
+
+
+						// Provider.js
+						Provider.prototype.getChildContext = function getChildContext() {
+							var _ref;
+					  
+							return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+						};
+						Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = storeShape.isRequired, _Provider$childContex[subscriptionKey] = subscriptionShape, _Provider$childContex);
+						  
+					</textarea>
+					<p>react-router内部是通过context传递路由信息的，被Provider组件包裹后的子组件可以通过context来获取全局共享的store。</p>
+				</section>
+				<section data-markdown>
+					###### 新老Api的比较
+					1. context 相当于一个全局变量，难以追溯数据源，很难找到是在哪个地方中对 context 进行了更新。
+					2. 组件中依赖 context，会使组件耦合度提高，既不利于组件复用，也不利于组件测试。
+					3. 当 props 改变或是 setState 被调用，getChildContext 也会被调用，生成新的 context，但 shouldComponentUpdate 返回的 false 会 block 住 context，导致没有更新，老Api有解决方法，比较麻烦(新api已解决)。
+					4. createContext从父组件中剥离，在需要获取context的地方引入，当context对象有多个的时候，管理起来就会比较麻烦。
+					5. Provider和Consumer这种组件包裹的方式比较符合react的思想。
+				</section>
+				<section data-markdown>
+					###### Decorator(装饰器)
+				</section>
+				<section data-markdown>
+					###### HOC(高阶组件)
+				</section>
+				<section data-markdown>
+					###### react遍历中key的作用
+					<textarea data-templete>
+						code1:
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+							
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+							<li>Connecticut</li>
+						</ul>
+						
+						code2:
+						<ul>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+							
+						<ul>
+							<li>Connecticut</li>
+							<li>Duke</li>
+							<li>Villanova</li>
+						</ul>
+
+						code3:
+						<ul>
+							<li key="Duke">Duke</li>
+							<li key="Villanova">Villanova</li>
+						</ul>
+						  
+						<ul>
+							<li key="Connecticut">Connecticut</li>
+							<li key="Duke">Duke</li>
+							<li key="Villanova">Villanova</li>
+						</ul>
+					</textarea>
+					<p>加上key可以提高react在遍历出的列表更新时重渲染的性能，react的局部更新特点</p>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
