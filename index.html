@@ -48,6 +48,21 @@
 				<section>
 					<h1>测试</h1>
 				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							<h6>自动化测试</h6>
+							<p>传统的软件测试过于依赖手工操作：首先将应用程序部署到测试环境，然后执行一些黑盒测试，例如，通过点击用户界面来查看一切是否工作如常。通常这些测试将由文档指定，以确保测试人员每次测试的内容是一致的。</p>
+							<P>很明显，手动测试所有更改非常耗时、重复而且繁琐。重复很无趣，无趣就容易犯错，幸运的是，重复性劳动还是有药可治的：自动化。</p>
+						</script>
+					</section>
+					<section>
+						<p>测试金字塔</p>
+						<img data-src="images/jest/pyramid.png" width="80%"/>
+						<p>UI 测试测的是应用中的用户界面是否如预期工作。比如，用户的输入需要触发正确的动作，数据需要能展示给用户看，UI 的状态需要发生正确变化等。</p>
+					</section>
+				</section>
+
 				<section data-markdown>
 					<script type="text/template">
 						1. jest和enzyme简单介绍
@@ -172,7 +187,7 @@
 						<script type="text/template">
 							<p>当测试数据为number, boolean, string时，三种方式没有区别</p>
 							```
-							it.skip("测试三种比较方式", () => {
+							it("测试三种比较方式", () => {
 								const o = "a";
 								const p = "a";
 								const x = { a: { b: 3 } };
@@ -246,6 +261,7 @@
 				<section>
 					<h6>组件(页面)测试</h6>
 					<p>1. 快照测试(detail,soc-user)</p>
+					<p><a data-src="https://www.npmjs.com/package/jest-image-snapshot">jest-image-snapshot</a></p>
 					<section data-markdown>
 						<script type="text/template">
 							```
@@ -331,27 +347,27 @@
 									ip: '190.168.0.0.0',
 									result: "Ip地址不正确"
 								}]
-								it(`checkIP[${testData[0].ip}]`, (done) => {
+								it(`checkIP[192.168.1.1]`, (done) => {
 									rules.checkIP('',testData[0].ip,(args)=>{
-										expect(args).toEqual(testData[0].result)
+										expect(args).toEqual(undefined)
 										done()
 									})
 								})
-								it(`checkIP[${testData[1].ip}]`, (done) => {
+								it(`checkIP[192.1]`, (done) => {
 									rules.checkIP('',testData[1].ip,(args)=>{
-										expect(args).toEqual(testData[1].result)
+										expect(args).toEqual('Ip地址不正确')
 										done()
 									})
 								})
-								it(`checkIP[${testData[2].ip}]`, (done) => {
+								it(`checkIP[1.1.1.1]`, (done) => {
 									rules.checkIP('',testData[2].ip,(args)=>{
-										expect(args).toEqual(testData[2].result)
+										expect(args).toEqual(undefined)
 										done()
 									})
 								})
-								it(`checkIP[${testData[3].ip}]`, (done) => {
+								it(`checkIP[190.168.0.0.0]`, (done) => {
 									rules.checkIP('',testData[3].ip,(args)=>{
-										expect(args).toEqual(testData[3].result)
+										expect(args).toEqual('Ip地址不正确')
 										done()
 									})
 								})
@@ -379,7 +395,7 @@
 									}
 								}
 							
-								it("查看reducer是否包含两个方法", (done) => {
+								it("查看reducer是否包含saveListType方法", (done) => {
 									expect(actions).toHaveProperty('saveListType')
 									done()
 								});
@@ -430,7 +446,7 @@
 				<section>
 					<section data-markdown>
 						<script type="text/template">
-							<h6>api测试</h6>
+							<h6>api测试(soc-user)</h6>
 							<p>工具: jest-mock-fetch,用于测试fetch mock的包</p>
 							```
 							function fetchItem(params){
@@ -501,13 +517,14 @@
 				
 				<section data-markdown>
 					<script type="text/template">
-						<h6>其他测试工具</h6>
+						<h6>其他资源</h6>
 						<p><a target='_blank' href='https://www.npmjs.com/package/zombie'>zombie(页面模拟点击)</a></p>
 						<p><a target='_blank' href='https://www.npmjs.com/package/puppeteer'>puppeteer(爬虫工具，生成网页图片、pdf等)</a></p>
+						<p><a target='_blank' href='https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/200'>React 单元测试策略及落地</a></p>
+						<p><a target='_blank' href='https://insights.thoughtworks.cn/practical-test-pyramid/'>测试金字塔实战</a></p>
 					</script>
 				</section>
 			</div>
-
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
