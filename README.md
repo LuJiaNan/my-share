@@ -1,6 +1,4 @@
-<p align="center">
-	<img src="https://travis-ci.org/LuJiaNan/my-share.svg?branch=master">
-</p>
+[![Build Status](https://travis-ci.org/LuJiaNan/my-share.svg?branch=master)](https://travis-ci.org/LuJiaNan/my-share)
 ## Table of contents
 
 - [Online Editor](#online-editor)
