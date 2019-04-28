@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/LuJiaNan/my-share.svg?branch=master)](https://travis-ci.org/LuJiaNan/my-share)
+[![Coverage Status](https://coveralls.io/repos/github/LuJiaNan/my-share/badge.svg?branch=master)](https://coveralls.io/github/LuJiaNan/my-share?branch=master)
 ## Table of contents
 
 - [Online Editor](#online-editor)
