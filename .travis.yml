@@ -1,9 +1,5 @@
 language: node_js
-node_js: node
-cache: yarn
-install:
-- yarn install
-- yarn add node-coveralls
-
-script:
-- yarn jest --coverage --coverageReporters=text-lcov | coveralls
+node_js:
+  - 8
+after_script:
+  - npm run build -- retire
