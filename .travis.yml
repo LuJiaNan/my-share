@@ -3,7 +3,7 @@ node_js: node
 cache: yarn
 install:
 - yarn install
-- yarn global add node-coveralls
+- yarn add node-coveralls
 
 script:
 - yarn jest --coverage --coverageReporters=text-lcov | coveralls
