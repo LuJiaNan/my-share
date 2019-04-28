@@ -9,7 +9,7 @@
     "test": "grunt test",
     "start": "grunt serve",
     "build": "grunt",
-    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls"
+    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov || ./node_modules/.bin/coveralls"
   },
   "author": {
     "name": "Hakim El Hattab",
