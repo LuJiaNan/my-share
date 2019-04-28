@@ -9,7 +9,7 @@
     "test": "grunt test",
     "start": "grunt serve",
     "build": "grunt",
-    "cover": "nyc cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"
+    "cover": "istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js"
   },
   "author": {
     "name": "Hakim El Hattab",
