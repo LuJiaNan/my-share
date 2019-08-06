@@ -1,0 +1,13 @@
+{
+  "projectId": "i6mp2c",
+  "chromeWebSecurity": false,
+  "modifyObstructiveCode": false,
+  "baseUrl": "http://192.168.200.178:6006",
+  "env":{
+    "updateSnapshots": false
+  },
+  "ignoreTestFiles": [
+    "**/__snapshots__/*",
+    "**/__image_snapshots__/*"
+  ]
+}
