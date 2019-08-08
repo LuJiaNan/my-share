@@ -2,7 +2,10 @@
   "projectId": "i6mp2c",
   "chromeWebSecurity": false,
   "env":{
-    "updateSnapshots": false
+    "updateSnapshots": false,
+    "cypress-plugin-snapshots": {
+      
+    }
   },
   "viewportHeight": 900,
   "viewportWidth": 1440,
