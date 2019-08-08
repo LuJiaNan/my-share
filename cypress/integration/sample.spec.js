@@ -1,10 +1,8 @@
 describe('组件库访问', function() {
-    before(function () {
-      cy.visit('/')
-    })
     beforeEach(function () {
       cy.viewport(1440,900)
       cy.wait(3000)
+      cy.visit('http://192.168.200.178:6006')
     })
     // it('主页面可访问测试', function() {
     //     cy.visit('/capaa/login.jspx')
@@ -21,7 +19,8 @@ describe('组件库访问', function() {
     //         // cy.contains('搜 索').click()
     //     })
     // })
-    it.skip('简单的点击和输入测试',function(){
+    it('简单的点击和输入测试',function(){
+      cy.title().should('include', 'AdvancedSearch')
       cy.wait(3000)
       cy.get('iframe').iframe('#root').find('input[name="name"]').type('18', {force: true})
       cy.get('iframe').iframe('body').find('input[name="name"]').should('have.class','ant-input')
@@ -36,7 +35,7 @@ describe('组件库访问', function() {
       cy.get('iframe').iframe('body').find('input[name="sex"]').type('男', {force: true})
     })
 
-    it.skip('ButtonGroups 组件测试',function(){
+    it('ButtonGroups 组件测试',function(){
       cy.get("#buttongroups").click()
       cy.get('#buttongroups--基础使用 > :nth-child(3)').click()
       cy.wait(1000)
@@ -55,9 +54,9 @@ describe('组件库访问', function() {
     })
 
 
-    it.skip('DataTable 组件测试',function(){
+    it('DataTable 组件测试',function(){
       cy.contains('DataTable').click()
-      cy.contains('基础使用').click()
+      cy.get('#datatable--基础使用').click()
       cy.wait(1000)
       cy.get('iframe').iframe('body').find('.ant-table-pagination').should('exist')
       cy.contains('去除分页').click()
@@ -65,7 +64,7 @@ describe('组件库访问', function() {
       cy.get('iframe').iframe('body').find('.ant-table-pagination').should('not.exist')
     })
 
-    it.skip('DetailTable 组件测试',function(){
+    it('DetailTable 组件测试',function(){
       cy.contains('DetailTable').click()
       cy.get('#detailtable--基础使用-data为json > :nth-child(3)').click()
       cy.get('iframe').iframe('body').find('.ant-table-tbody >:nth-child(1)').find('th').its('length').should('eq', 2)
@@ -77,7 +76,7 @@ describe('组件库访问', function() {
       cy.get('iframe').iframe('body').find('.ant-table-tbody >:nth-child(1)').find('th').its('length').should('eq', 3)
     })
 
-    it.skip('Ellipsis 组件测试',function(){
+    it('Ellipsis 组件测试',function(){
       cy.contains('Ellipsis').click()
       cy.get('#ellipsis--text值与鼠标移上时不同 > :nth-child(3)').click()
       cy.get('textarea[name="text"]').should('have.value', '这是一个Ellipsis基础用法接收的text')
@@ -91,8 +90,7 @@ describe('组件库访问', function() {
       })
     })
 
-    it.skip('Panel 组件测试', function(){
-      cy.wait(1000)
+    it('Panel 组件测试', function(){
       cy.contains('Panel').click()
       cy.get('#panel--基础用法').click()
       cy.get('iframe').iframe('body').find('.ant-spin-spinning').should('not.exist')
@@ -105,7 +103,7 @@ describe('组件库访问', function() {
         cy.get('iframe').iframe('body').contains('确定').should('exist')
       })
       cy.get('iframe').iframe('body').contains('取消吧').should('not.exist')
-      cy.get('#okText').type('取消吧').then(($node) => {
+      cy.get('#cancelText').type('取消吧').then(($node) => {
         cy.get('iframe').iframe('body').contains('取消吧').should('exist')
       })
     })
@@ -114,9 +112,17 @@ describe('组件库访问', function() {
     //https://github.com/meinaart/cypress-plugin-snapshots 配置介绍
     it('快照测试', function(){
       cy.contains('Panel').click()
+      cy.get('#panel--基础用法').click().then(()=>{
+        cy.wait(1000)
+        cy.document().toMatchSnapshot()
+      })
+    })
+
+    it('图片比对',function(){
+      cy.contains('Panel').click()
       cy.get('#panel--基础用法').click()
-      cy.get('body').toMatchSnapshot()
-      cy.get('body').toMatchImageSnapshot()
+      // cy.get('#advancedsearch--更多查询项时出现扩展').click()
+      cy.document().toMatchImageSnapshot()
     })
 
 

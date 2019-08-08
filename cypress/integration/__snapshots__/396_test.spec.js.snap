@@ -1,0 +1,1214 @@
+exports[`组件库访问 > 快照测试 #0`] = `
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root">
+    <header class="main-header">
+      <div class="menu-logo clearfix">
+        <a class="logo" href="#/capaa/home"
+          ><img
+            alt="logo"
+            class="menu-logo-20"
+            src="/static/media/logo.9a9c5ed7.svg"/><span
+            class="main-title-20"
+          ></span
+        ></a>
+      </div>
+      <nav>
+        <a class="link" href="#/capaa/home">系统首页</a
+        ><a class="link" href="#/capaa/search">审计查询</a
+        ><a class="link" href="#/capaa/identify">身份管理</a
+        ><a class="link active" aria-current="page" href="#/capaa/dbserver"
+          >数据库服务</a
+        ><a class="link" href="#/capaa/strategy">策略管理</a
+        ><a class="link" href="#/capaa/accessmanage2">数据库访问</a
+        ><a class="link" href="#/capaa/accesscontrol">表格访问</a
+        ><a class="link" href="#/capaa/report">报表管理</a
+        ><a class="link" href="#/capaa/book">订阅告警</a
+        ><a class="link" href="#/capaa/systemwatch">设备配置</a
+        ><a class="link" href="#/capaa/set">系统管理</a>
+      </nav>
+      <div class="toolbars">
+        <div class="fontStyle ant-dropdown-trigger">
+          <img
+            alt="修改密码"
+            src="/static/media/admin.fa60d935.svg"
+            style="height: 14px;"
+          />&nbsp;admin&nbsp;<i class="anticon anticon-down"></i>
+        </div>
+        <div class="fontStyle ant-dropdown-trigger">
+          <i class="anticon anticon-setting"></i> 设置
+          <i class="anticon anticon-down"></i>
+        </div>
+      </div>
+    </header>
+    <div class="main-height clearfix">
+      <ul
+        class="ant-menu nav-left ant-menu-dark ant-menu-root ant-menu-inline"
+        role="menu"
+      >
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/db"
+            ><i class="anticon anticon-mc-shujuku"></i>数据库管理</a
+          >
+        </li>
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/group"
+            ><i class="anticon anticon-mc-fenzu"></i>分组管理</a
+          >
+        </li>
+        <li class="ant-menu-submenu ant-menu-submenu-inline" role="menuitem">
+          <div
+            class="ant-menu-submenu-title"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="padding-left: 16px;"
+          >
+            <span
+              ><i class="anticon anticon-mc-probe"></i
+              ><span>探针管理</span></span
+            ><i class="ant-menu-submenu-arrow"></i>
+          </div>
+          <div></div>
+        </li>
+        <li
+          class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
+          role="menuitem"
+        >
+          <div
+            class="ant-menu-submenu-title"
+            aria-expanded="true"
+            aria-haspopup="true"
+            style="padding-left: 16px;"
+            aria-owns="/capaa/dbserver/dataGovernance$Menu"
+          >
+            <span
+              ><i class="anticon anticon-mc-shuju"></i
+              ><span>数据治理</span></span
+            ><i class="ant-menu-submenu-arrow"></i>
+          </div>
+          <ul
+            id="/capaa/dbserver/dataGovernance$Menu"
+            class="ant-menu ant-menu-sub ant-menu-inline"
+            role="menu"
+            style=""
+          >
+            <li
+              class="ant-menu-item ant-menu-item-selected"
+              role="menuitem"
+              style="padding-left: 32px;"
+            >
+              <a
+                href="#/capaa/dbserver/dataGovernance/discoverTask"
+                class="active"
+                aria-current="page"
+                ><i class="anticon anticon-undefined"></i>敏感数据发现</a
+              >
+            </li>
+            <li
+              class="ant-menu-item"
+              role="menuitem"
+              style="padding-left: 32px;"
+            >
+              <a
+                href="#/capaa/dbserver/dataGovernance/discoverTableConfirmResult"
+                ><i class="anticon anticon-undefined"></i>敏感发现结果</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/shield/revert"
+            ><i class="anticon anticon-mc-huifu"></i>误操作恢复</a
+          >
+        </li>
+      </ul>
+      <div class="main-right">
+        <div class="ant-breadcrumb">
+          <span
+            ><span class="ant-breadcrumb-link"
+              ><a href="#/capaa/dbserver">数据库服务</a></span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          ><span
+            ><span class="ant-breadcrumb-link"
+              ><a href="#/capaa/dbserver/dataGovernance">数据治理</a></span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          ><span
+            ><span class="ant-breadcrumb-link">敏感数据发现</span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          >
+        </div>
+        <div class="ant-panel-wrapper ">
+          <div class="ant-spin-nested-loading">
+            <div class="ant-spin-container">
+              <div class="ant-panel ">
+                <div class="ant-panel-body">
+                  <div class="advanced-search-panel">
+                    <form
+                      class="ant-form ant-form-horizontal advanced-search-form"
+                    >
+                      <div
+                        class="ant-row"
+                        style="margin-left: -10px; margin-right: -10px;"
+                      >
+                        <div
+                          class="ant-col-8"
+                          style="padding-left: 10px; padding-right: 10px;"
+                        >
+                          <div class="ant-row ant-form-item">
+                            <div class="ant-col-8 ant-form-item-label">
+                              <label for="taskName" class="" title="任务名称"
+                                >任务名称</label
+                              >
+                            </div>
+                            <div
+                              class="ant-col-16 ant-form-item-control-wrapper"
+                            >
+                              <div class="ant-form-item-control">
+                                <span class="ant-form-item-children"
+                                  ><input
+                                    label="任务名称"
+                                    placeholder="全部"
+                                    name="taskName"
+                                    type="text"
+                                    id="taskName"
+                                    data-__meta="[object Object]"
+                                    data-__field="[object Object]"
+                                    class="ant-input"
+                                    value=""
+                                /></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="ant-col-8"
+                          style="padding-left: 10px; padding-right: 10px;"
+                        >
+                          <div class="ant-row ant-form-item">
+                            <div class="ant-col-8 ant-form-item-label">
+                              <label for="dbName" class="" title="数据库名"
+                                >数据库名</label
+                              >
+                            </div>
+                            <div
+                              class="ant-col-16 ant-form-item-control-wrapper"
+                            >
+                              <div class="ant-form-item-control">
+                                <span class="ant-form-item-children"
+                                  ><input
+                                    label="数据库名"
+                                    placeholder="全部"
+                                    name="dbName"
+                                    type="text"
+                                    id="dbName"
+                                    data-__meta="[object Object]"
+                                    data-__field="[object Object]"
+                                    class="ant-input"
+                                    value=""
+                                /></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="advanced-search-toolbar">
+                        <button type="submit" class="ant-btn ant-btn-primary">
+                          <span>搜 索</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="ant-row mc-btn-row">
+                    <div class="ant-col-12">
+                      <div class="button-groups">
+                        <div class="ant-btn-group">
+                          <button
+                            actionkey="add"
+                            type="button"
+                            class="ant-btn ant-btn-primary"
+                          >
+                            <span>添加</span><span> </span></button
+                          ><span
+                            style="display: inline-block; cursor: not-allowed;"
+                            ><button
+                              actionkey="delete"
+                              disabled=""
+                              type="button"
+                              class="ant-btn"
+                              style="pointer-events: none;"
+                            >
+                              <span>删 除</span>
+                            </button></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ant-col-12" style="text-align: right;">
+                      <div class="button-groups">
+                        <div class="ant-btn-group">
+                          <button
+                            actionkey="deleteAll"
+                            type="button"
+                            class="ant-btn"
+                          >
+                            <span>清 空</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ant-table-wrapper" style="width: 100%;">
+                    <div class="ant-spin-nested-loading">
+                      <div class="fade-enter">
+                        <div
+                          class="ant-spin ant-spin-spinning ant-table-without-pagination ant-table-spin-holder"
+                        >
+                          <span class="ant-spin-dot ant-spin-dot-spin"
+                            ><i></i><i></i><i></i><i></i
+                          ></span>
+                        </div>
+                      </div>
+                      <div class="ant-spin-container ant-spin-blur">
+                        <div
+                          class="ant-table ant-table-middle ant-table-empty ant-table-scroll-position-left"
+                        >
+                          <div class="ant-table-content">
+                            <div class="ant-table-body">
+                              <table class="">
+                                <colgroup>
+                                  <col />
+                                  <col />
+                                  <col />
+                                  <col
+                                    style="width: 200px; min-width: 200px;"
+                                  />
+                                  <col />
+                                  <col />
+                                  <col
+                                    style="width: 200px; min-width: 200px;"
+                                  />
+                                  <col
+                                    style="width: 190px; min-width: 190px;"
+                                  />
+                                </colgroup>
+                                <thead class="ant-table-thead">
+                                  <tr>
+                                    <th class="ant-table-selection-column">
+                                      <span
+                                        ><div class="ant-table-selection">
+                                          <label class="ant-checkbox-wrapper"
+                                            ><span
+                                              class="ant-checkbox ant-checkbox-disabled"
+                                              ><input
+                                                type="checkbox"
+                                                disabled=""
+                                                class="ant-checkbox-input"
+                                                value=""/><span
+                                                class="ant-checkbox-inner"
+                                              ></span></span
+                                          ></label></div
+                                      ></span>
+                                    </th>
+                                    <th class=""><span>任务名称</span></th>
+                                    <th class=""><span>数据库名</span></th>
+                                    <th class=""><span>发现结果</span></th>
+                                    <th class=""><span>状态</span></th>
+                                    <th class=""><span>创建用户</span></th>
+                                    <th class=""><span>创建时间</span></th>
+                                    <th class=""><span>操作</span></th>
+                                  </tr>
+                                </thead>
+                                <tbody class="ant-table-tbody"></tbody>
+                              </table>
+                            </div>
+                            <div class="ant-table-placeholder"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/lib/jquery-2.2.4.min.js"></script>
+  <script src="./assets/js/lib/echarts.custom.min.js"></script>
+  <script src="./assets/js/lib/jquery.marquee.min.js"></script>
+  <script src="./assets/js/lib/E_Base.js"></script>
+  <script src="./assets/js/mockData.js"></script>
+  <script src="./assets/js/mc_relationalGraph.js"></script>
+
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run \`npm start\` or \`yarn start\`.
+      To create a production bundle, use \`npm run build\` or \`yarn build\`.
+    -->
+
+  <script type="text/javascript" src="/static/js/bundle.js"></script>
+</body>
+`;
+
+exports[`396 > 快照测试 #0`] = `
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root">
+    <header class="main-header">
+      <div class="menu-logo clearfix">
+        <a class="logo" href="#/capaa/home"
+          ><img
+            alt="logo"
+            class="menu-logo-20"
+            src="/static/media/logo.9a9c5ed7.svg"/><span
+            class="main-title-20"
+          ></span
+        ></a>
+      </div>
+      <nav>
+        <a class="link" href="#/capaa/home">系统首页</a
+        ><a class="link" href="#/capaa/search">审计查询</a
+        ><a class="link" href="#/capaa/identify">身份管理</a
+        ><a class="link active" aria-current="page" href="#/capaa/dbserver"
+          >数据库服务</a
+        ><a class="link" href="#/capaa/strategy">策略管理</a
+        ><a class="link" href="#/capaa/accessmanage2">数据库访问</a
+        ><a class="link" href="#/capaa/accesscontrol">表格访问</a
+        ><a class="link" href="#/capaa/report">报表管理</a
+        ><a class="link" href="#/capaa/book">订阅告警</a
+        ><a class="link" href="#/capaa/systemwatch">设备配置</a
+        ><a class="link" href="#/capaa/set">系统管理</a>
+      </nav>
+      <div class="toolbars">
+        <div class="fontStyle ant-dropdown-trigger">
+          <img
+            alt="修改密码"
+            src="/static/media/admin.fa60d935.svg"
+            style="height: 14px;"
+          />&nbsp;admin&nbsp;<i class="anticon anticon-down"></i>
+        </div>
+        <div class="fontStyle ant-dropdown-trigger">
+          <i class="anticon anticon-setting"></i> 设置
+          <i class="anticon anticon-down"></i>
+        </div>
+      </div>
+    </header>
+    <div class="main-height clearfix">
+      <ul
+        class="ant-menu nav-left ant-menu-dark ant-menu-root ant-menu-inline"
+        role="menu"
+      >
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/db"
+            ><i class="anticon anticon-mc-shujuku"></i>数据库管理</a
+          >
+        </li>
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/group"
+            ><i class="anticon anticon-mc-fenzu"></i>分组管理</a
+          >
+        </li>
+        <li class="ant-menu-submenu ant-menu-submenu-inline" role="menuitem">
+          <div
+            class="ant-menu-submenu-title"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style="padding-left: 16px;"
+          >
+            <span
+              ><i class="anticon anticon-mc-probe"></i
+              ><span>探针管理</span></span
+            ><i class="ant-menu-submenu-arrow"></i>
+          </div>
+          <div></div>
+        </li>
+        <li
+          class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
+          role="menuitem"
+        >
+          <div
+            class="ant-menu-submenu-title"
+            aria-expanded="true"
+            aria-haspopup="true"
+            style="padding-left: 16px;"
+            aria-owns="/capaa/dbserver/dataGovernance$Menu"
+          >
+            <span
+              ><i class="anticon anticon-mc-shuju"></i
+              ><span>数据治理</span></span
+            ><i class="ant-menu-submenu-arrow"></i>
+          </div>
+          <ul
+            id="/capaa/dbserver/dataGovernance$Menu"
+            class="ant-menu ant-menu-sub ant-menu-inline"
+            role="menu"
+            style=""
+          >
+            <li
+              class="ant-menu-item ant-menu-item-selected"
+              role="menuitem"
+              style="padding-left: 32px;"
+            >
+              <a
+                href="#/capaa/dbserver/dataGovernance/discoverTask"
+                class="active"
+                aria-current="page"
+                ><i class="anticon anticon-undefined"></i>敏感数据发现</a
+              >
+            </li>
+            <li
+              class="ant-menu-item"
+              role="menuitem"
+              style="padding-left: 32px;"
+            >
+              <a
+                href="#/capaa/dbserver/dataGovernance/discoverTableConfirmResult"
+                ><i class="anticon anticon-undefined"></i>敏感发现结果</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="ant-menu-item" role="menuitem" style="padding-left: 16px;">
+          <a href="#/capaa/dbserver/shield/revert"
+            ><i class="anticon anticon-mc-huifu"></i>误操作恢复</a
+          >
+        </li>
+      </ul>
+      <div class="main-right">
+        <div class="ant-breadcrumb">
+          <span
+            ><span class="ant-breadcrumb-link"
+              ><a href="#/capaa/dbserver">数据库服务</a></span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          ><span
+            ><span class="ant-breadcrumb-link"
+              ><a href="#/capaa/dbserver/dataGovernance">数据治理</a></span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          ><span
+            ><span class="ant-breadcrumb-link">敏感数据发现</span
+            ><span class="ant-breadcrumb-separator">/</span></span
+          >
+        </div>
+        <div class="ant-panel-wrapper ">
+          <div class="ant-spin-nested-loading">
+            <div class="ant-spin-container">
+              <div class="ant-panel ">
+                <div class="ant-panel-body">
+                  <div class="advanced-search-panel">
+                    <form
+                      class="ant-form ant-form-horizontal advanced-search-form"
+                    >
+                      <div
+                        class="ant-row"
+                        style="margin-left: -10px; margin-right: -10px;"
+                      >
+                        <div
+                          class="ant-col-8"
+                          style="padding-left: 10px; padding-right: 10px;"
+                        >
+                          <div class="ant-row ant-form-item">
+                            <div class="ant-col-8 ant-form-item-label">
+                              <label for="taskName" class="" title="任务名称"
+                                >任务名称</label
+                              >
+                            </div>
+                            <div
+                              class="ant-col-16 ant-form-item-control-wrapper"
+                            >
+                              <div class="ant-form-item-control">
+                                <span class="ant-form-item-children"
+                                  ><input
+                                    label="任务名称"
+                                    placeholder="全部"
+                                    name="taskName"
+                                    type="text"
+                                    id="taskName"
+                                    data-__meta="[object Object]"
+                                    data-__field="[object Object]"
+                                    class="ant-input"
+                                    value=""
+                                /></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="ant-col-8"
+                          style="padding-left: 10px; padding-right: 10px;"
+                        >
+                          <div class="ant-row ant-form-item">
+                            <div class="ant-col-8 ant-form-item-label">
+                              <label for="dbName" class="" title="数据库名"
+                                >数据库名</label
+                              >
+                            </div>
+                            <div
+                              class="ant-col-16 ant-form-item-control-wrapper"
+                            >
+                              <div class="ant-form-item-control">
+                                <span class="ant-form-item-children"
+                                  ><input
+                                    label="数据库名"
+                                    placeholder="全部"
+                                    name="dbName"
+                                    type="text"
+                                    id="dbName"
+                                    data-__meta="[object Object]"
+                                    data-__field="[object Object]"
+                                    class="ant-input"
+                                    value=""
+                                /></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="advanced-search-toolbar">
+                        <button type="submit" class="ant-btn ant-btn-primary">
+                          <span>搜 索</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="ant-row mc-btn-row">
+                    <div class="ant-col-12">
+                      <div class="button-groups">
+                        <div class="ant-btn-group">
+                          <button
+                            actionkey="add"
+                            type="button"
+                            class="ant-btn ant-btn-primary"
+                          >
+                            <span>添加</span><span> </span></button
+                          ><span
+                            style="display: inline-block; cursor: not-allowed;"
+                            ><button
+                              actionkey="delete"
+                              disabled=""
+                              type="button"
+                              class="ant-btn"
+                              style="pointer-events: none;"
+                            >
+                              <span>删 除</span>
+                            </button></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ant-col-12" style="text-align: right;">
+                      <div class="button-groups">
+                        <div class="ant-btn-group">
+                          <button
+                            actionkey="deleteAll"
+                            type="button"
+                            class="ant-btn"
+                          >
+                            <span>清 空</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ant-table-wrapper" style="width: 100%;">
+                    <div class="ant-spin-nested-loading">
+                      <div class="ant-spin-container">
+                        <div
+                          class="ant-table ant-table-middle ant-table-scroll-position-left"
+                        >
+                          <div class="ant-table-content">
+                            <div class="ant-table-body">
+                              <table class="">
+                                <colgroup>
+                                  <col />
+                                  <col />
+                                  <col />
+                                  <col
+                                    style="width: 200px; min-width: 200px;"
+                                  />
+                                  <col />
+                                  <col />
+                                  <col
+                                    style="width: 200px; min-width: 200px;"
+                                  />
+                                  <col
+                                    style="width: 190px; min-width: 190px;"
+                                  />
+                                </colgroup>
+                                <thead class="ant-table-thead">
+                                  <tr>
+                                    <th class="ant-table-selection-column">
+                                      <span
+                                        ><div class="ant-table-selection">
+                                          <label class="ant-checkbox-wrapper"
+                                            ><span class="ant-checkbox"
+                                              ><input
+                                                type="checkbox"
+                                                class="ant-checkbox-input"
+                                                value=""/><span
+                                                class="ant-checkbox-inner"
+                                              ></span></span
+                                          ></label></div
+                                      ></span>
+                                    </th>
+                                    <th class=""><span>任务名称</span></th>
+                                    <th class=""><span>数据库名</span></th>
+                                    <th class=""><span>发现结果</span></th>
+                                    <th class=""><span>状态</span></th>
+                                    <th class=""><span>创建用户</span></th>
+                                    <th class=""><span>创建时间</span></th>
+                                    <th class=""><span>操作</span></th>
+                                  </tr>
+                                </thead>
+                                <tbody class="ant-table-tbody">
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="oracle">
+                                        oracle
+                                      </div>
+                                    </td>
+                                    <td class="">testmask</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：27，敏感字段：301"
+                                      >
+                                        敏感表：27，敏感字段：301
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-07-26 16:43:25"
+                                      >
+                                        2019-07-26 16:43:25
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="a">a</div>
+                                    </td>
+                                    <td class="">orcl</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：0，敏感字段：0"
+                                      >
+                                        敏感表：0，敏感字段：0
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-07-29 09:37:35"
+                                      >
+                                        2019-07-29 09:37:35
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="99">
+                                        99
+                                      </div>
+                                    </td>
+                                    <td class="">orcl</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：0，敏感字段：0"
+                                      >
+                                        敏感表：0，敏感字段：0
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-07-29 17:41:34"
+                                      >
+                                        2019-07-29 17:41:34
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="AAAA">
+                                        AAAA
+                                      </div>
+                                    </td>
+                                    <td class="">testmask</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：9，敏感字段：35"
+                                      >
+                                        敏感表：9，敏感字段：35
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-07-30 16:18:14"
+                                      >
+                                        2019-07-30 16:18:14
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="wq">
+                                        wq
+                                      </div>
+                                    </td>
+                                    <td class="">orcl</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：0，敏感字段：0"
+                                      >
+                                        敏感表：0，敏感字段：0
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-07-31 10:55:35"
+                                      >
+                                        2019-07-31 10:55:35
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div class="td-ellipsis" text="46">
+                                        46
+                                      </div>
+                                    </td>
+                                    <td class="">testmask</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：0，敏感字段：0"
+                                      >
+                                        敏感表：0，敏感字段：0
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-08-02 09:54:03"
+                                      >
+                                        2019-08-02 09:54:03
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="ant-table-row  ant-table-row-level-0"
+                                  >
+                                    <td class="ant-table-selection-column">
+                                      <span
+                                        ><label class="ant-checkbox-wrapper"
+                                          ><span class="ant-checkbox"
+                                            ><input
+                                              type="checkbox"
+                                              class="ant-checkbox-input"
+                                              value=""/><span
+                                              class="ant-checkbox-inner"
+                                            ></span></span></label
+                                      ></span>
+                                    </td>
+                                    <td class="">
+                                      <span
+                                        class="ant-table-row-indent indent-level-0"
+                                        style="padding-left: 0px;"
+                                      ></span>
+                                      <div
+                                        class="td-ellipsis"
+                                        text="regex测试1111"
+                                      >
+                                        regex测试1111
+                                      </div>
+                                    </td>
+                                    <td class="">testmask</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="敏感表：0，敏感字段：0"
+                                      >
+                                        敏感表：0，敏感字段：0
+                                      </div>
+                                    </td>
+                                    <td class="">完成</td>
+                                    <td class="">admin</td>
+                                    <td class="">
+                                      <div
+                                        class="td-ellipsis"
+                                        text="2019-08-07 08:37:29"
+                                      >
+                                        2019-08-07 08:37:29
+                                      </div>
+                                    </td>
+                                    <td class="">
+                                      <div class="button-groups">
+                                        <div class="ant-btn-group">
+                                          <button
+                                            actionkey="confirmResult"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>结果确认</span></button
+                                          ><button
+                                            actionkey="delete"
+                                            type="button"
+                                            class="ant-btn"
+                                          >
+                                            <span>删 除</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <ul
+                          class="ant-pagination ant-table-pagination"
+                          unselectable="unselectable"
+                        >
+                          <li
+                            title="上一页"
+                            class="ant-pagination-disabled ant-pagination-prev"
+                            aria-disabled="true"
+                          >
+                            <a class="ant-pagination-item-link"></a>
+                          </li>
+                          <li
+                            title="1"
+                            class="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active"
+                            tabindex="0"
+                          >
+                            <a>1</a>
+                          </li>
+                          <li
+                            title="下一页"
+                            class="ant-pagination-disabled ant-pagination-next"
+                            aria-disabled="true"
+                          >
+                            <a class="ant-pagination-item-link"></a>
+                          </li>
+                          <li class="ant-pagination-options">
+                            <div
+                              class="ant-pagination-options-size-changer ant-select ant-select-enabled"
+                            >
+                              <div
+                                class="ant-select-selection
+            ant-select-selection--single"
+                                role="combobox"
+                                aria-autocomplete="list"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                tabindex="0"
+                              >
+                                <div class="ant-select-selection__rendered">
+                                  <div
+                                    class="ant-select-selection-selected-value"
+                                    title="10 条/页"
+                                    style="display: block; opacity: 1;"
+                                  >
+                                    10 条/页
+                                  </div>
+                                </div>
+                                <span
+                                  class="ant-select-arrow"
+                                  unselectable="on"
+                                  style="user-select: none;"
+                                  ><b></b
+                                ></span>
+                              </div>
+                            </div>
+                            <div class="ant-pagination-options-quick-jumper">
+                              跳至<input type="text" value="" />页
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/lib/jquery-2.2.4.min.js"></script>
+  <script src="./assets/js/lib/echarts.custom.min.js"></script>
+  <script src="./assets/js/lib/jquery.marquee.min.js"></script>
+  <script src="./assets/js/lib/E_Base.js"></script>
+  <script src="./assets/js/mockData.js"></script>
+  <script src="./assets/js/mc_relationalGraph.js"></script>
+
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run \`npm start\` or \`yarn start\`.
+      To create a production bundle, use \`npm run build\` or \`yarn build\`.
+    -->
+
+  <script type="text/javascript" src="/static/js/bundle.js"></script>
+</body>
+`;

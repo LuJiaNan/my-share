@@ -46,14 +46,15 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>测试</h1>
+					<h1>E2E(端对端)测试</h1>
 				</section>
 				<section>
 					<section data-markdown>
 						<script type="text/template">
-							<h6>自动化测试</h6>
-							<p>传统的软件测试过于依赖手工操作：首先将应用程序部署到测试环境，然后执行一些黑盒测试，例如，通过点击用户界面来查看一切是否工作如常。通常这些测试将由文档指定，以确保测试人员每次测试的内容是一致的。</p>
-							<P>很明显，手动测试所有更改非常耗时、重复而且繁琐。重复很无趣，无趣就容易犯错，幸运的是，重复性劳动还是有药可治的：自动化。</p>
+							<p>简单来说，就是模拟真实用户使用场景进行测试，预期应用能够正常响应用户的操作，其关键点在于模拟用户使用环境，模拟用户操作，减少人力工作。</p>
+							<p>大概可以围绕这几个部分进行测试：行为，布局，可用性。但是这就会有一些问题：</p>
+							<p>1.用户界面越复杂，测试常常越是脆弱。浏览器差异、时间（时序）问题、元素渲染、意外的弹出框…等等都会影响测试的结果。</p>
+							<p>2.端到端测试还需要大量的维护成本，运行起来也相当慢。需要等待真实接口响应和页面渲染的时间。</p>
 						</script>
 					</section>
 					<section>
@@ -61,467 +62,36 @@
 						<img data-src="images/jest/pyramid.png" width="80%"/>
 						<p>UI 测试测的是应用中的用户界面是否如预期工作。比如，用户的输入需要触发正确的动作，数据需要能展示给用户看，UI 的状态需要发生正确变化等。</p>
 					</section>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						1. jest和enzyme简单介绍
-						2. 组件(页面)测试
-						3. 方法测试
-						4. reducer测试
-						5. saga测试
-						6. api测试   
-						7. 测试覆盖率
-						8. 其他测试工具
-					</script>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-						<h6>Jest</h6>
-						<p>Jest是 Facebook 的一套开源的 JavaScript 测试框架， 它自动集成了断言、JSDom、覆盖率报告等开发者所需要的所有测试工具，是一款几乎零配置的测试框架</p>
-					</script>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-						<h6>一个简单的用例</h6>
-						```
-						describe('简单测试',()=>{
-							function sum(a,b) {
-							  return a + b
-							}
-					  
-							it.only('sum(2 + 2) 等于 4', () => {
-							  expect(sum(2, 2)).toBe(4);
-							})
-						  })
-						```
-						<img data-src="images/jest/simple_result.png"/>
-					</script>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-						<h6>常用的几个Jest断言</h6>
-						1.not
-						```
-						it('sum(2, 2) 不等于 5', () => {
-							expect(sum(2, 2)).not.toBe(5);
-						})
-						```
-						2.toEqual
-						<p>toEqual匹配器会递归的检查对象所有属性和属性值是否相等</p>
-						```
-						it('sum(2, 2) 等于 4', () => {
-							expect(sum(2, 2)).toEqual(4);
-						})
-						```
-						3.toHaveLength
-						<p>toHaveLength可以很方便的用来测试字符串和数组类型的长度是否满足预期</p>
-						```
-						it('sum("a", "b") 长度等于 2', () => {
-							expect(sum('a', 'b')).toHaveLength(2);
-						})
-						```
-					</script>
-				</section>
-				<section>
-					<section data-markdown>
-						<script type="text/template">
-							<h6>toBe,toEqual,toStrictEqual的区别</h6>
-							1.toBe用于比较原始值或检查对象实例的引用一致性
-							```
-							const can = {
-								name: 'pamplemousse',
-								ounces: 12,
-								x: 0.1,
-								y: 0.2
-							};
-							
-							describe('the can', () => {
-								test('has 12 ounces', () => {
-									expect(can.ounces).toBe(12);
-								});
-								
-								test('has a sophisticated name', () => {
-									expect(can.name).toBe('pamplemousse');
-								});
-
-								test('test float', () => {
-									expect(can.x + can.y).not.toBe(0.3);
-								})
-							});
-							
-							```
-						</script>
-					</section>
-					<section data-markdown>
-						<script type="text/template">
-							2.toEqual用于递归地比较对象实例的所有属性（也称为“深度”相等）
-							```
-							const can1 = {
-								flavor: 'grapefruit',
-								ounces: 12,
-							};
-							const can2 = {
-								flavor: 'grapefruit',
-								ounces: 12,
-							};
-							
-							describe('the La Croix cans on my desk', () => {
-								test('have all the same properties', () => {
-									expect(can1).toEqual(can2);
-								});
-								test('are not the exact same can', () => {
-									expect(can1).not.toBe(can2);
-								});
-							});
-							
-							```
-						</script>
-					</section>
-					<section data-markdown>
-						<script type="text/template">
-							3.toStrictEqual用来测试对象是否具有相同类型和结构。(mcf-detail)
-						</script>
-					</section>
-					<section data-markdown>
-						<script type="text/template">
-							<p>当测试数据为number, boolean, string时，三种方式没有区别</p>
-							```
-							it("测试三种比较方式", () => {
-								const o = "a";
-								const p = "a";
-								const x = { a: { b: 3 } };
-								const y = { a: { b: 3, c: undefined } };
-								const m = [, 1];
-								const n = [undefined, 1];
-							
-								expect(o).toBe(p);
-								expect(o).toEqual(p);
-								expect(o).toStrictEqual(p);
-								expect(x).not.toBe(y);
-								expect(x).toEqual(y);
-								expect(x).not.toStrictEqual(y);
-								expect(m).not.toBe(n);
-								expect(m).toEqual(n);
-								expect(m).toStrictEqual(n);
-							});
-							```
-						</script>
+					<section>
+						<p>e2e 和 unit 的区别</p>
+						<p>unit测试是站在程序员的角度测试。把代码看成是一个个的组件。从而实现每一个组件的单独测试，测试内容主要是组件内每一个函数的返回结果是不是和期望值一样。</p>
+						<p>e2e测试是站在用户角度的测试。把我们的程序看成是一个黑盒子，我不懂你内部是怎么实现的，我只负责打开浏览器，把测试内容在页面上进行操作，看是不是我想要得到的结果。</p>
 					</section>
 				</section>
 
 				<section data-markdown>
 					<script type="text/template">
-						<h6>其他</h6>
-						1. Jest全局方法
-						2. Jest运行参数
+						<h6>e2e测试工具</h6>
+						<p>zombie(页面模拟点击)</p>
+						<p>puppeteer(爬虫工具，生成网页图片、pdf等)</p>
+						<p>Selenium(浏览器自动化测试框架)</p>
+						<p>Nightwatch(基于Selenium)</p>
+						<p>Protractor(angular)</p>
+						<p>cypress</p>
 					</script>
 				</section>
 
 				<section data-markdown>
 					<script type="text/template">
-						<h6>Enzyme(酶)</h6>
-						<p>Enzyme是一个辅助测试的工具库，功能类似于jquery</p>
+						1. 安装和文件结构
+						2. api
+						3. 用例
 					</script>
 				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>一个简单的用例</h6>
-						```
-						import { shallow } from 'enzyme'
-						describe('', () => {
-						  it('简单测试', () => {
-							function Nav () {
-							  return <a>test</a>
-							}
-							const wrapper = shallow(<Nav />);
-							expect(wrapper.find('a').text()).toBe('test');
-						  })
-						})
-						```
-					</script>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>三种渲染方法：shallow，mount，render</h6>
-						1. shallow：浅渲染，是对官方的Shallow Renderer的封装。将组件渲染成虚拟DOM对象，只会渲染第一层，子组件将不会被渲染出来，因而效率非常高。不需要DOM环境， 并可以使用jQuery的方式访问组件的信息。其作用是仅仅渲染至虚拟节点，不会返回真实的节点，能极大提高测试性能。但是它不适合测试包含子组件、需要测试声明周期的组件。
-						2. mount：完全渲染，它将组件渲染加载成一个真实的DOM节点，用来测试DOM API的交互和组件的生命周期，用到了jsdom来模拟浏览器环境。会将所有子组件，子节点都展开，渲染的结构和浏览器中见到的一样。渲染内容比较多，耗时最长。
-						3. render：静态渲染，它将React组件渲染成静态的HTML字符串，然后使用Cheerio这个库解析这段字符串，并返回一个Cheerio的实例对象，可以用来分析组件的html结构。和mount相比，只渲染render方法里的内容，生命周期，事件交互通通丢弃，耗时比mount稍短一些。由于渲染完的wrapper能使用的API并不多，因为已经是第三方的东西，不建议使用。(cheerio是jquery核心功能的一个快速灵活而又简洁的实现，主要是为了用在服务器端需要对DOM进行操作的地方)
-					</script>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>Enzyme API</h6>
-					</script>
-				</section>
-
-				<section>
-					<h6>组件(页面)测试</h6>
-					<p>1. 快照测试(detail,soc-user)</p>
-					<p><a data-src="https://www.npmjs.com/package/jest-image-snapshot">jest-image-snapshot</a></p>
-					<section data-markdown>
-						<script type="text/template">
-							```
-							import Form from "../../views/Form.view";
-							import renderer from "react-test-renderer";
-							describe('',()=>{
-								const props = {
-									item: {},
-									items: [],
-									actions: {
-										
-									},
-									locale: jest.fn(),
-									spins: jest.fn(),
-									match: {
-										params: ''
-									},
-									spins: jest.fn(),
-								}
-								it("form快照", () => {
-									const tree = renderer.create(<Form {...props}/>).toJSON();
-									expect(tree).toMatchSnapshot();
-								})
-							})  
-							```
-						</script>
-					</section>
-					<section data-markdown>
-						<script type="text/template">
-							```
-							import List from "../../views/List.view";
-							import renderer from "react-test-renderer";
-							class TestView extends List {
-								render(){
-									return this.renderSearchForm()
-								}
-							}
-							describe('',()=>{
-								const props = {
-									item: {},
-									items: [],
-									actions: {
-										fetchPage: jest.fn()
-									},
-									locale: jest.fn(),
-									spins: jest.fn(),
-									match: {
-										params: ''
-									},
-									querys: jest.fn(),
-									reducer: {
-										page: {}
-									}
-								}
-								it("searchform快照", () => {
-									const tree = renderer.create(<TestView {...props}/>).toJSON();
-									expect(tree).toMatchSnapshot();
-								})
-							})  
-							```
-						</script>
-					</section>
-				</section>
-
-				<section>
-					<h6>方法测试</h6>
-					<p>1. 组件内部方法</p>
-					<p>2. 单独外部引入的方法，utils公用方法</p>
-					<section data-markdown>
-						<script type="text/template">
-							```
-							describe('验证checkIP正确性', () => {
-								const testData = [{
-									ip: '192.168.1.1',
-									result: undefined
-								},{
-									ip: '192.1',
-									result: "Ip地址不正确"
-								},{
-									ip: '1.1.1.1',
-									result: undefined
-								},{
-									ip: '190.168.0.0.0',
-									result: "Ip地址不正确"
-								}]
-								it(`checkIP[192.168.1.1]`, (done) => {
-									rules.checkIP('',testData[0].ip,(args)=>{
-										expect(args).toEqual(undefined)
-										done()
-									})
-								})
-								it(`checkIP[192.1]`, (done) => {
-									rules.checkIP('',testData[1].ip,(args)=>{
-										expect(args).toEqual('Ip地址不正确')
-										done()
-									})
-								})
-								it(`checkIP[1.1.1.1]`, (done) => {
-									rules.checkIP('',testData[2].ip,(args)=>{
-										expect(args).toEqual(undefined)
-										done()
-									})
-								})
-								it(`checkIP[190.168.0.0.0]`, (done) => {
-									rules.checkIP('',testData[3].ip,(args)=>{
-										expect(args).toEqual('Ip地址不正确')
-										done()
-									})
-								})
-							})
-							```
-						</script>
-					</section>
-				</section>
-				
-				<section>
-					<h6>reducer(方法)测试</h6>
-					<p>1. soc-risk</p>
-					<section data-markdown>
-						<script type="text/template">
-							```
-							import reducer,{initialState,reducerActions as actions} from '../reducer'
-	
-							describe("reducerActions", () => {
-								const initialState = {
-										item: {},
-										items: [],
-										page: {
-										current: 1,
-										total: 0
-									}
-								}
-							
-								it("查看reducer是否包含saveListType方法", (done) => {
-									expect(actions).toHaveProperty('saveListType')
-									done()
-								});
-							
-							
-								it('验证reducer的初始化state', () => {
-									expect(reducer(undefined, {})).toEqual(
-										{
-											...initialState,
-											type: 'allow'
-										}
-									)
-								})
-							
-								it('验证saveListType方法', () => {
-									const payload = {
-										type:'prohibit'
-									}
-									const action = actions.saveListType(payload.type);
-									expect(reducer(initialState,action)).toEqual(Object.assign({},initialState,payload))
-								})
-							});
-							```
-						</script>
-					</section>
-				</section>
-
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>saga(方法)测试</h6>
-						```
-						changeListType: function* (action){
-							yield effects.put(reducerActions.saveListType(action.payload))
-						}
-
-						it('saga changeListType',(done)=>{
-							const action={
-							  payload:'a'
-							}
-							const gen = cloneableGenerator(saga.changeListType)(action)
-							expect(gen.next().value).toEqual(put(reducerActions.saveListType(action.payload)))
-							done()
-						})
-						```
-					</script>
-				</section>
-				<section>
-					<section data-markdown>
-						<script type="text/template">
-							<h6>api测试(soc-user)</h6>
-							<p>工具: jest-mock-fetch,用于测试fetch mock的包</p>
-							```
-							function fetchItem(params){
-								return  FetchUtils.fetchGet(`/url/${params.id}`)
-							}
-	
-							it('api.fetchItem 带参数',(done)=>{
-								beforeEach(()=>{
-									fetch.resetMocks()
-								})
-								let params={
-									id:1
-								}
-								let mockResult={}
-								fetch.mockResponse(JSON.stringify(mockResult))
-								api.fetchItem(params).then((result)=>{
-									console.log(fetch.mock.calls)
-									expect(fetch.mock.calls[0][0]).toEqual("/url/1")
-									expect(fetch.mock.calls[0][1].method).toEqual("GET")
-									expect(result).toEqual(mockResult)
-									done()
-								})
-							})
-							```
-						</script>
-					</section>
-					<section data-markdown>
-						<script type="text/template">
-							<h6>清除mock的几种方法</h6>
-							<p>1. mockClear(),mockReset()和mockRestore()</p>
-							<P>mockClear会清空保存在mock.calls和m,mock.instance的所有数据</p>
-							<P>mockReset会在mockClear的同时删除任何mock的返回值或实现</p>
-							<P>mockRestore会在mockReset的同时恢复原始mock。等同于：</p>
-							```
-							const origProp = obj.prop;
-							// do something with obj.prop
-							obj.prop = origProp;
-							```
-							<p>2. clearAllMocks(),resetAllMocks(),restoreAllMocks()</p>
-							<p>相当于调用每个用例的对应方法，restoreAllMocks方法只适用于jest.spyOn创建的mock</p>
-							<P>jest.spyOn()方法同样创建一个mock函数，但是该mock函数不仅能够捕获函数的调用情况，还可以正常的执行被spy的函数。实际上，jest.spyOn()是jest.fn()的语法糖，它创建了一个和被spy的函数具有相同内部代码的mock函数</p>
-							<p>3. resetMocks</p>
-							<p>jest-mock-fetch内部方法</p>
-						</script>
-					</section>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>测试覆盖率</h6>
-						1. %stmts是语句覆盖率（statement coverage）：是不是每个语句都执行了？
-						2. %Branch分支覆盖率（branch coverage）：是不是每个if代码块都执行了？
-						3. %Funcs函数覆盖率（function coverage）：是不是每个函数都调用了？
-						4. %Lines行覆盖率（line coverage）：是不是每一行都执行了？
-					</script>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						<h6>坑</h6>
-						```
-						it('',()=>{
-							console.log('')
-						})
-						```
-					</script>
-				</section>
-				
 				<section data-markdown>
 					<script type="text/template">
 						<h6>其他资源</h6>
-						<p><a target='_blank' href='https://www.npmjs.com/package/zombie'>zombie(页面模拟点击)</a></p>
-						<p><a target='_blank' href='https://www.npmjs.com/package/puppeteer'>puppeteer(爬虫工具，生成网页图片、pdf等)</a></p>
-						<p><a target='_blank' href='https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/200'>React 单元测试策略及落地</a></p>
-						<p><a target='_blank' href='https://insights.thoughtworks.cn/practical-test-pyramid/'>测试金字塔实战</a></p>
+						<p><a target='_blank' href='https://2018.stateofjs.com/cn/testing/overview/'>https://2018.stateofjs.com/cn/testing/overview/</a></p>
 					</script>
 				</section>
 			</div>

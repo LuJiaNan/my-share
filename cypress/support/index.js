@@ -25,3 +25,26 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     // failing the test
     return false
 })
+
+Cypress.Screenshot.defaults({
+    blackout: ['.ant-panel-body'],
+    capture: 'runner',
+    onAfterScreenshot ($el, props) {
+      // props has information about the screenshot,
+      // including but not limited to the following:
+  
+      // {
+      //   path: '/Users/janelane/project/screenshots/my-screenshot.png',
+      //   size: '15 kb',
+      //   dimensions: {
+      //     width: 1000,
+      //     height: 660,
+      //   },
+      //   scaled: true,
+      //   blackout: ['.foo'],
+      //   duration: 2300,
+      // }
+      console.log(props)
+      Cypress.log(props)
+    },
+})
