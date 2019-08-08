@@ -24,9 +24,6 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-
-import 'cypress-plugin-snapshots/commands'
-
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, selector) => {
   Cypress.log({
     name: 'iframe',
