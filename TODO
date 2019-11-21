@@ -1,0 +1,69 @@
+1-1 什么是CSS预处理器
+定义：
+CSS 预处理器定义了一种新的语言，其基本思想是，用一种专门的编程语言，为 CSS 增加了一些编程的特性，将 CSS 作为目标生成文件，然后开发者就只要使用这种语言进行编码工作。
+
+通俗的说，“CSS 预处理器用一种专门的编程语言，进行 Web 页面样式设计，然后再编译成正常的 CSS 文件，以供项目使用。CSS 预处理器为 CSS 增加一些编程的特性，无需考虑浏览器的兼容性问题”，例如你可以在 CSS 中使用变量、简单的逻辑程序、函数（如右侧代码编辑器中就使用了变量$color）等等在编程语言中的一些基本特性，可以让你的 CSS 更加简洁、适应性更强、可读性更佳，更易于代码的维护等诸多好处。
+
+其它 CSS 预处理器语言：
+CSS 预处理器技术已经非常的成熟，而且也涌现出了很多种不同的 CSS 预处理器语言，比如说：
+
+Sass（SCSS）
+
+介绍：Sass 是一门高于 CSS 的元语言，它能用来清晰地、结构化地描述文件样式，有着比普通 CSS 更加强大的功能。
+网址：http://sass-lang.com/
+LESS
+
+介绍：Less 是一门 CSS 预处理语言，它扩充了 CSS 语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。
+
+网址：http://lesscss.org/
+
+Stylus
+
+介绍：Stylus 是一个CSS的预处理框架，2010年产生，来自Node.js社区，主要用来给Node项目进行CSS预处理支持，所以 Stylus 是一种新型语言，可以创建健壮的、动态的、富有表现力的CSS。比较年轻，其本质上做的事情与 SASS/LESS 等类似，
+网址：http://stylus-lang.com/
+
+
+https://www.kancloud.cn/dataoedu/sass/content
+https://dev.to/flippedcoding/the-differences-between-css-less--sass-5a74
+https://stackshare.io/stackups/less-vs-sass-vs-stylus
+https://www.keycdn.com/blog/sass-vs-less
+
+
+
+预处理器做什么用？
+
+DRY CSS: Don’t Repeat Your CSS
+
+普通css
+div1{
+ color: red;
+}
+div1 div2 {
+    color: yellow;
+}
+div1 div2 div3{
+    color: blue;
+}
+div1 div2 div3 div4 {
+    color: green;
+}
+带嵌套的预处理器
+div1{
+    color: red;
+    div2{
+        color: yellow;
+        div3{
+            color: blue;
+            div4{
+                color: green;
+            }
+        }
+    }
+}
+
+
+由于现在项目大多依赖组件库，样式库，自己需要写的样式并不多，简单的less就已经足够满足要求。github上less stars 多于sass，sass比较适合ui库开发和维护，大多数人只是ui库的使用者
+
+说到less，大家用的最多的应该就是嵌套功能了。
+1.变量前缀不同，sass用$，less用@
+2.

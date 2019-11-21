@@ -20,6 +20,8 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
+		<link rel="stylesheet" href="pages/Preprocessor/style.sass">
+
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
@@ -40,59 +42,92 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>E2E(端对端)测试</h1>
+					<h1>CSS 处理器</h1>
+					<P>CSS预处理器和后处理器</P>
+					<p>Sass,Scss</p>
+					<p>Sass、LESS、Stylus</p>
+					<p>LESS</p>
+					<p>Antd 主题样式 和 在线切换主题</p>
+				</section>
+
+				<section>
+					<p>
+						CSS 预处理器(pre-processors)定义了一种新的语言，其基本思想是，用一种专门的编程语言，为 CSS 增加了一些编程的特性，将 CSS 作为目标生成文件，然后开发者就只要使用这种语言进行编码工作。
+						通俗的说，“CSS 预处理器用一种专门的编程语言，进行 Web 页面样式设计，然后再编译成正常的 CSS 文件，以供项目使用。CSS 预处理器为 CSS 增加一些编程的特性，无需考虑浏览器的兼容性问题”，、
+						例如你可以在 CSS 中使用变量、简单的逻辑程序、函数（如右侧代码编辑器中就使用了变量$color）等等在编程语言中的一些基本特性，可以让你的 CSS 更加简洁、适应性更强、可读性更佳，更易于代码的维护等诸多好处。
+						Sass、LESS、Stylus 是目前最主流的 CSS 预处理器
+					</p>
 				</section>
 				<section>
-					<section data-markdown>
-						<script type="text/template">
-							<p>简单来说，就是模拟真实用户使用场景进行测试，预期应用能够正常响应用户的操作，其关键点在于模拟用户使用环境，模拟用户操作，减少人力工作。</p>
-							<p>大概可以围绕这几个部分进行测试：行为，布局，可用性。但是这就会有一些问题：</p>
-							<p>1.用户界面越复杂，测试常常越是脆弱。浏览器差异、时间（时序）问题、元素渲染、意外的弹出框…等等都会影响测试的结果。</p>
-							<p>2.端到端测试还需要大量的维护成本，运行起来也相当慢。需要等待真实接口响应和页面渲染的时间。</p>
-						</script>
-					</section>
-					<section>
-						<p>测试金字塔</p>
-						<img data-src="images/jest/pyramid.png" width="80%"/>
-						<p>UI 测试测的是应用中的用户界面是否如预期工作。比如，用户的输入需要触发正确的动作，数据需要能展示给用户看，UI 的状态需要发生正确变化等。</p>
-					</section>
-					<section>
-						<p>e2e 和 unit 的区别</p>
-						<p>unit测试是站在程序员的角度测试。把代码看成是一个个的组件。从而实现每一个组件的单独测试，测试内容主要是组件内每一个函数的返回结果是不是和期望值一样。</p>
-						<p>e2e测试是站在用户角度的测试。把我们的程序看成是一个黑盒子，我不懂你内部是怎么实现的，我只负责打开浏览器，把测试内容在页面上进行操作，看是不是我想要得到的结果。</p>
-					</section>
+					<p>
+						CSS 后处理器(post-processors)是一种工具，不需要自己写额外的css代码，原来你怎么写就怎么写，不用考虑兼容性的问题等， 等你写完后， 会再帮你补齐你 做的不好的地方。
+						例如可以用Autoprefixer 自动给样式增加浏览器前缀，PostCss给伪类选择器判断单冒号和双冒号格式、把引用的单图自动做 CSS Sprites 归类与合并等等
+						Autoprefixer是一款处理浏览器前缀的插件
+					</p>
+				</section>
+				<section>
+					<p>
+						<h5>预处理器的一些缺点：</h5>
+						1.使用这些预处理器之前需要安装一些依赖，比如使用sass前需要安装Ruby；使用Less前需要安装JavaScript相关的库
+						2.项目中往往只使用了预处理极少数的功能，但开发者却被强制安装了一个庞大的预处理器，比如sass
+						3.使用预处理器编译样式实际上是很慢的，虽然初始的编译过程只有几秒钟，但随着项目体积的增长，编译时间会越来越长。
+					</p>
+					<p>
+						PostCss是一个基于Node.js 构建的第三方模块，它可以与现有的大量Node.js插件同时运行。它可以创建自定义的样式处理器。
+					</p>
 				</section>
 
-				<section data-markdown>
-					<script type="text/template">
-						<h6>e2e测试工具</h6>
-						<p>zombie(页面模拟点击)</p>
-						<p>puppeteer(爬虫工具，生成网页图片、pdf等)</p>
-						<p>Selenium(浏览器自动化测试框架)</p>
-						<p>Nightwatch(基于Selenium)</p>
-						<p>Protractor(angular)</p>
-						<p>cypress</p>
-					</script>
+				<section>
+					<p>
+						Sass,Scss
+						Sass 有两种语法格式，sass和scss。
+						Sass 和 SCSS 其实是同一种东西，我们平时都称之为 Sass，两者之间不同之处有以下两点：
+							文件扩展名不同，Sass 是以“.sass”后缀为扩展名，而 SCSS 是以“.scss”后缀为扩展名
+							语法书写方式不同，Sass 是以严格的缩进式语法规则来书写，不带大括号({})和分号(;)，而 SCSS 的语法书写和我们的 CSS 语法书写方式非常类似。
+					</p>	
+					<img src="./images/less/sass and scss.png" width="50%"/>
 				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						1. 安装和文件结构
-						2. api
-						3. 用例
-					</script>
+				<section>
+					<a target='_blank' href='https://stackshare.io/stackups/less-vs-sass-vs-stylus'>less-vs-sass-vs-stylus</a>
+					<p>
+						Sass（SCSS）
+						Sass 是一门高于 CSS 的元语言，它能用来清晰地、结构化地描述文件样式，有着比普通 CSS 更加强大的功能。
+						Sass 是采用 Ruby 语言编写的一款 CSS 预处理语言，它诞生于2007年，是最大的成熟的 CSS 预处理语言。最初它是为了配合 HAML（一种缩进式 HTML 预编译器）而设计的，因此有着和 HTML 一样的缩进式风格
+						虽然缩进式风格可以有效缩减代码量，强制规范编码风格，但它一方面并不为大多数程序接受，另一方面无法兼容已有的 CSS 代码。这也是 Sass 虽然出现得最早，但远不如 LESS 普及的原因。
+						<a target='_blank' href='http://sass-lang.com/'>官网</a>
+					</p>
+					<p>
+						LESS
+						Less 是一门 CSS 预处理语言，它扩充了 CSS 语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。
+						<a target='_blank' href='http://lesscss.org/'>官网</a>
+					</p>
+					<p>
+						Stylus
+						Stylus 是一个CSS的预处理框架，2010年产生，来自Node.js社区，主要用来给Node项目进行CSS预处理支持，所以 Stylus 是一种新型语言，可以创建健壮的、动态的、富有表现力的CSS。比较年轻，其本质上做的事情与 SASS/LESS 等类似，
+						<a target='_blank' href='http://stylus-lang.com/'>官网</a>
+						<a target='_blank' href='https://stylus.comptechs.cn/'>中文网</a>
+					</p>
+					scss和less写法类似，sass和stylus写法类似
+					都遵循DRY原则(Don’t-Repeat-Yourself)
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						<h6>其他资源</h6>
-						<p><a target='_blank' href='https://2018.stateofjs.com/cn/testing/overview/'>https://2018.stateofjs.com/cn/testing/overview/</a></p>
-					</script>
+				<section>
+					<h6>LESS</h6>
+					<a target='_blank' href='http://lesscss.org/'>官网</a></br>
+					<a target='_blank' href='https://www.w3cschool.cn/less/'>w3c</a>
+				</section>
+				<section>
+					<img src="./images/less/bezier.webp"/>
+				</section>
+				<section>
+					<img src="./images/less/2.gif"/>
+				</section>
+				<section>
+					<img src="./images/less/3.gif"/>
 				</section>
 			</div>
 		</div>
