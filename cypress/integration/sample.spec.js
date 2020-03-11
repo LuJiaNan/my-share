@@ -1,7 +1,7 @@
 describe('组件库访问', function() {
     beforeEach(function () {
       cy.viewport(1440,900)
-      cy.wait(3000)
+      cy.wait(6000)
       cy.visit('http://192.168.200.178:6006')
     })
     // it('主页面可访问测试', function() {
