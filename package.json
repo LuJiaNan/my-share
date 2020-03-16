@@ -12,7 +12,8 @@
     "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov || ./node_modules/.bin/coveralls",
     "report-coverage": "codecov",
     "e2e": "cypress open",
-    "e2e:report": "node cypress_runner -b chrome"
+    "e2e:report": "node cypress_runner -b chrome",
+    "start:coverage": "nyc --silent node server"
   },
   "author": {
     "name": "Hakim El Hattab",
