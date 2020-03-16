@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="65.299" tests="8" failures="2">
+  <testsuite name="Root Suite" timestamp="2020-03-13T00:58:18" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="组件库访问" timestamp="2020-03-13T00:58:19" tests="8" failures="2" time="65.299">
+    <testcase name="组件库访问 简单的点击和输入测试" time="16.189" classname="简单的点击和输入测试">
+    </testcase>
+    <testcase name="组件库访问 ButtonGroups 组件测试" time="12.288" classname="ButtonGroups 组件测试">
+    </testcase>
+    <testcase name="组件库访问 DataTable 组件测试" time="9.969" classname="DataTable 组件测试">
+    </testcase>
+    <testcase name="组件库访问 DetailTable 组件测试" time="9.432" classname="DetailTable 组件测试">
+    </testcase>
+    <testcase name="组件库访问 Ellipsis 组件测试" time="8.409" classname="Ellipsis 组件测试">
+    </testcase>
+    <testcase name="组件库访问 Panel 组件测试" time="0" classname="Panel 组件测试">
+      <failure message="Timed out retrying: Expected to find content: &apos;确定&apos; within the element: &lt;body.sb-show-main&gt; but never did." type="CypressError"><![CDATA[CypressError: Timed out retrying: Expected to find content: '确定' within the element: <body.sb-show-main> but never did.
+    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)
+    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)
+    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)
+    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)
+    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18
+    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)
+    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)
+    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)
+    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)
+    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)
+    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)
+    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)
+    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)]]></failure>
+    </testcase>
+    <testcase name="组件库访问 快照测试" time="0" classname="快照测试">
+      <failure message="Snapshots do not match:
+--- 组件库访问 &gt; 快照测试 #0
++++ 组件库访问 &gt; 快照测试 #0
+@@ -1,5 +1,5 @@
+ {
+-  &quot;_reactListenersID34174441934665345&quot;: 0,
++  &quot;_reactListenersID6235079612583083&quot;: 0,
+   &quot;location&quot;: {
+     &quot;ancestorOrigins&quot;: {
+       &quot;0&quot;: &quot;http://192.168.200.178:6006&quot;
+@@ -14,11 +14,11 @@
+     &quot;protocol&quot;: &quot;http:&quot;,
+     &quot;search&quot;: &quot;?path=/story/panel--%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95&quot;
+   },
+-  &quot;sizzle1565248289978&quot;: {
++  &quot;sizzle1584061106401&quot;: {
+     &quot;undefined&quot;: {
+       &quot;parentNode&quot;: [
+-        835.8511107571264,
+-        1710,
++        1061.7180739218593,
++        2270,
+         false
+       ]
+     }" type="Error"><![CDATA[Error: Snapshots do not match:
+--- 组件库访问 > 快照测试 #0
++++ 组件库访问 > 快照测试 #0
+@@ -1,5 +1,5 @@
+ {
+-  "_reactListenersID34174441934665345": 0,
++  "_reactListenersID6235079612583083": 0,
+   "location": {
+     "ancestorOrigins": {
+       "0": "http://192.168.200.178:6006"
+@@ -14,11 +14,11 @@
+     "protocol": "http:",
+     "search": "?path=/story/panel--%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"
+   },
+-  "sizzle1565248289978": {
++  "sizzle1584061106401": {
+     "undefined": {
+       "parentNode": [
+-        835.8511107571264,
+-        1710,
++        1061.7180739218593,
++        2270,
+         false
+       ]
+     }
+    at Context.logMessage (http://192.168.200.178:6006/__cypress/tests?p=cypress\support\index.js-583:23509:11)]]></failure>
+    </testcase>
+    <testcase name="组件库访问 图片比对" time="9.012" classname="图片比对">
+    </testcase>
+  </testsuite>
+</testsuites>

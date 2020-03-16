@@ -1,0 +1,259 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 8,
+    "passes": 3,
+    "pending": 0,
+    "failures": 5,
+    "start": "2020-03-13T01:01:58.705Z",
+    "end": "2020-03-13T01:03:36.318Z",
+    "duration": 97613,
+    "testsRegistered": 8,
+    "passPercent": 37.5,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ed3857c7-79c3-47b6-b821-16754e748eaf",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+          "title": "组件库访问",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "简单的点击和输入测试",
+              "fullTitle": "组件库访问 简单的点击和输入测试",
+              "timedOut": null,
+              "duration": 14384,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.title().should('include', 'AdvancedSearch');\ncy.wait(3000);\ncy.get('iframe').iframe('#root').find('input[name=\"name\"]').type('18', {\n  force: true\n});\ncy.get('iframe').iframe('body').find('input[name=\"name\"]').should('have.class', 'ant-input');\ncy.get('#showConfig').click();\ncy.contains('BaseForm').click();\ncy.contains('基础使用(with formitem)').click();\ncy.get('iframe').iframe('body').should('exist');\ncy.wait(1000);\ncy.get('iframe').iframe('#root').find('input[name=\"name\"]').type('18', {\n  force: true\n});\ncy.get('iframe').iframe('body').find('input[name=\"age\"]').type('18', {\n  force: true\n});\ncy.get('iframe').iframe('body').find('input[name=\"age\"]').clear();\ncy.get('iframe').iframe('body').find('input[name=\"sex\"]').type('男', {\n  force: true\n});",
+              "err": {},
+              "uuid": "46d69ca1-498f-41a4-898a-40e77ad0debb",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "ButtonGroups 组件测试",
+              "fullTitle": "组件库访问 ButtonGroups 组件测试",
+              "timedOut": null,
+              "duration": 11867,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"#buttongroups\").click();\ncy.get('#buttongroups--基础使用 > :nth-child(3)').click();\ncy.wait(1000);\ncy.get('input[name=\"showSize\"]').clear();\ncy.get('input[name=\"showSize\"]').should('have.attr', 'value', '5');\ncy.get('input[name=\"showSize\"]').type(123);\ncy.get('select[name=\"viewMode\"]').select('\"text\"');\ncy.contains('\"text\"').should('exist');\ncy.get('iframe').iframe('body').find('.ant-btn-group > :nth-child(1)').trigger('mouseover').should('have.class', 'ant-tooltip-open');\ncy.get('#buttongroups--handleclick > :nth-child(3)').click();\ncy.wait(1000); // 测试注意一点:有些想当然的文字可能中间会有空格\ncy.get('iframe').iframe('body').contains('新 增').should('not.exist');\ncy.get('select[name=\"viewMode\"]').select('\"icon\"');\ncy.get('iframe').iframe('body').contains('新 增').should('exist');",
+              "err": {},
+              "uuid": "67ace1d3-97df-459f-befc-8760767ed536",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "DataTable 组件测试",
+              "fullTitle": "组件库访问 DataTable 组件测试",
+              "timedOut": null,
+              "duration": 9967,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('DataTable').click();\ncy.get('#datatable--基础使用').click();\ncy.wait(1000);\ncy.get('iframe').iframe('body').find('.ant-table-pagination').should('exist');\ncy.contains('去除分页').click();\ncy.wait(1000);\ncy.get('iframe').iframe('body').find('.ant-table-pagination').should('not.exist');",
+              "err": {},
+              "uuid": "2eea39cb-cb98-4729-a926-c583cf68f62d",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "DetailTable 组件测试",
+              "fullTitle": "组件库访问 DetailTable 组件测试",
+              "timedOut": null,
+              "duration": 10397,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('DetailTable').click();\ncy.get('#detailtable--基础使用-data为json > :nth-child(3)').click();\ncy.get('iframe').iframe('body').find('.ant-table-tbody >:nth-child(1)').find('th').its('length').should('eq', 2);\ncy.get('input[name=\"columnNumber\"]').clear();\ncy.get('iframe').iframe('body').contains('列数必须大于0').should('exist');\ncy.get('input[name=\"columnNumber\"]').clear().type('3');\ncy.wait(1000);\ncy.get('iframe').iframe('body').find('.ant-table-tbody >:nth-child(1)').find('th').its('length').should('be.gt', 2);\ncy.get('iframe').iframe('body').find('.ant-table-tbody >:nth-child(1)').find('th').its('length').should('eq', 3);",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find content: 'DetailTable' but never did.",
+                "estack": "CypressError: Timed out retrying: Expected to find content: 'DetailTable' but never did.\n    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)\n    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)\n    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18\n    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "7b8ba990-dd2f-4452-b2f5-145abe73e5d9",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Ellipsis 组件测试",
+              "fullTitle": "组件库访问 Ellipsis 组件测试",
+              "timedOut": null,
+              "duration": 10402,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Ellipsis').click();\ncy.get('#ellipsis--text值与鼠标移上时不同 > :nth-child(3)').click();\ncy.get('textarea[name=\"text\"]').should('have.value', '这是一个Ellipsis基础用法接收的text');\ncy.get('textarea[name=\"tooltiptext\"]').should('have.value', '这是一个tooltiptext扩展用法自定义的tooltiptext值');\ncy.get('iframe').iframe('body').contains('这是一个Ellipsis基础用法接收的text').should('exist');\ncy.get('iframe').iframe('body').contains('这是一个tooltiptext扩展用法自定义的tooltiptext值').should('not.exist');\ncy.get('iframe').iframe('body').contains('这是一个Ellipsis基础用法接收的text').trigger('mouseover').then(function ($node) {\n  cy.get($node).should('have.class', 'ant-tooltip-open');\n  cy.get('iframe').iframe('body').contains('这是一个Ellipsis基础用法接收的text').should('exist');\n  cy.get('iframe').iframe('body').contains('这是一个tooltiptext扩展用法自定义的tooltiptext值').should('exist');\n});",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find content: 'Ellipsis' but never did.",
+                "estack": "CypressError: Timed out retrying: Expected to find content: 'Ellipsis' but never did.\n    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)\n    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)\n    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18\n    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "32502a0a-3bf3-4142-94ce-560f012f6865",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Panel 组件测试",
+              "fullTitle": "组件库访问 Panel 组件测试",
+              "timedOut": null,
+              "duration": 10880,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Panel').click();\ncy.get('#panel--基础用法').click();\ncy.get('iframe').iframe('body').find('.ant-spin-spinning').should('not.exist');\ncy.wait(300);\ncy.get('input[name=\"loading\"]').should('be.visible').click().then(function ($node) {\n  cy.get('iframe').iframe('body').find('.ant-spin-spinning').should('exist');\n});\ncy.get('iframe').iframe('body').contains('确定').should('not.exist');\ncy.get('#okText').type('确定').then(function ($node) {\n  cy.get('iframe').iframe('body').contains('确定').should('exist');\n});\ncy.get('iframe').iframe('body').contains('取消吧').should('not.exist');\ncy.get('#cancelText').type('取消吧').then(function ($node) {\n  cy.get('iframe').iframe('body').contains('取消吧').should('exist');\n});",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.",
+                "estack": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.\n    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)\n    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)\n    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18\n    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "02c63bbd-7f16-41b0-932b-cf351a3c2ab4",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "快照测试",
+              "fullTitle": "组件库访问 快照测试",
+              "timedOut": null,
+              "duration": 10813,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Panel').click();\ncy.get('#panel--基础用法').click().then(function () {\n  cy.wait(1000);\n  cy.document().toMatchSnapshot();\n});",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.",
+                "estack": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.\n    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)\n    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)\n    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18\n    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "286a2d85-6b1b-46c3-af5d-da3dbd160386",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "图片比对",
+              "fullTitle": "组件库访问 图片比对",
+              "timedOut": null,
+              "duration": 10729,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Panel').click();\ncy.get('#panel--基础用法').click(); // cy.get('#advancedsearch--更多查询项时出现扩展').click()\ncy.document().toMatchImageSnapshot();",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.",
+                "estack": "CypressError: Timed out retrying: Expected to find content: 'Panel' but never did.\n    at Object.cypressErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:84991:17)\n    at retry (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:78004:16)\n    at http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:69809:18\n    at tryCatcher (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://192.168.200.178:6006/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "b7447b60-7c4a-4d15-8265-e14836bfaa87",
+              "parentUUID": "4b7684a4-f686-46fe-af13-265e8312e3ff",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "46d69ca1-498f-41a4-898a-40e77ad0debb",
+            "67ace1d3-97df-459f-befc-8760767ed536",
+            "2eea39cb-cb98-4729-a926-c583cf68f62d"
+          ],
+          "failures": [
+            "7b8ba990-dd2f-4452-b2f5-145abe73e5d9",
+            "32502a0a-3bf3-4142-94ce-560f012f6865",
+            "02c63bbd-7f16-41b0-932b-cf351a3c2ab4",
+            "286a2d85-6b1b-46c3-af5d-da3dbd160386",
+            "b7447b60-7c4a-4d15-8265-e14836bfaa87"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 89439,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/report/mochawesome-report",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.1.0"
+    }
+  }
+}

@@ -1,16 +1,11 @@
 {
-  "projectId": "i6mp2c",
-  "chromeWebSecurity": false,
-  "env":{
-    "updateSnapshots": false,
-    "cypress-plugin-snapshots": {
-      
-    }
+  "reporter": "mochawesome",
+  "reporterOptions": {
+      "reportDir": "cypress/report/mochawesome-report",
+      "overwrite": false,
+      "html": false,
+      "json": true,
+      "timestamp": "mmddyyyy_HHMMss"
   },
-  "viewportHeight": 900,
-  "viewportWidth": 1440,
-  "ignoreTestFiles": [
-    "**/__snapshots__/*",
-    "**/__image_snapshots__/*"
-  ]
+  "screenshotsFolder": "cypress/report/mochawesome-report/assets"
 }
