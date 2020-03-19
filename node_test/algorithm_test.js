@@ -417,3 +417,114 @@
 // }else{
 //     console.log('1111')
 // }
+
+
+// 实现pow 幂函数
+// var x = 2;
+// var n = -2;
+// var myPow = function(x, n) {
+//     if(n === 0){
+//         return 1
+//     }
+
+//     if(n < 0){
+//         return 1 / myPow(x, -n)
+//     }
+
+//     if(n % 2 === 0){
+//         return myPow(x * x, Math.floor(n / 2));
+//     }
+
+//     return myPow(x * x, Math.floor(n / 2)) * x;
+// };
+
+// console.log(myPow(x,n))
+
+
+// 实现计算平方根
+// var x = 13
+// var mySqrt = function(x) {
+//     var i = 0
+//     while(Math.pow(i, 2) <= x){
+//         i++
+//     }
+//     return i - 1
+// };
+
+// console.log(mySqrt(x))
+
+
+
+
+//单词搜索
+// 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+// 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+// board =
+// [
+//   ['A','B','C','E'],
+//   ['S','F','C','S'],
+//   ['A','D','E','E']
+// ]
+
+// 给定 word = "ABCCED", 返回 true
+// 给定 word = "SEE", 返回 true
+// 给定 word = "ABCB", 返回 false
+
+// var board =
+// [
+//   ['A','B','C','E'],
+//   ['S','F','C','S'],
+//   ['A','D','E','E']
+// ]
+// var word = "ABCB"
+
+// var exist = function(board, word) {
+//     for(let i=0;i<board.length;i++){
+
+//     }
+// };
+
+// console.log(exist(board,word))
+
+
+// n 皇后不能相互攻击(彼此不在一条直线或斜线)
+var n = 5
+var solveNQueens = function(n) {
+    // 一人一行，相邻x或者y差大于1
+    // x或y其一为递增，另外一项数列相邻两数差大于1
+    // q1 = {
+    //     x:1,
+    //     y:1
+    // }
+    // q2 = {
+    //     x:3,
+    //     y:2
+    // }
+    // q3 = {
+    //     x:5,
+    //     y:3
+    // }
+    // q4 = {
+    //     x:2,
+    //     y:4
+    // }
+    // q5 = {
+    //     x:4,
+    //     y:5
+    // }
+    var arr = [1,2,3,4,5]
+    var xArr = []
+    var sort = (preArr,leftArr) => {
+        if(leftArr.length > 0){
+            var arr1 = preArr.push()
+            return sort(arr1,arr2)
+        }
+        return preArr
+    }
+    console.log(sort([],arr))
+    for(let i=0;i<n;i++){
+
+    }
+};
+
+console.log(solveNQueens(n))

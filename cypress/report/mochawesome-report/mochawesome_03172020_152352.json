@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 0,
+    "passes": 0,
+    "pending": 0,
+    "failures": 0,
+    "start": "2020-03-17T07:23:41.592Z",
+    "end": "2020-03-17T07:23:52.982Z",
+    "duration": 11390,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 2,
+    "hasOther": true,
+    "skipped": 1,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "6200070b-b608-4524-a99f-2ae82016c0f9",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e45de1f7-8322-4fcc-89a5-3855d7b1d80f",
+          "title": "396",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "cypress 截图功能",
+              "fullTitle": "396 cypress 截图功能",
+              "timedOut": null,
+              "duration": 8894,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.screenshot();",
+              "err": {
+                "message": "CypressError: cy.task('coverageReport') failed with the following error:\n\n> TypeError: Command failed: E:\\my\\share\\my-share\\node_modules\\.bin\\nyc report --report-dir ./coverage --temp-dir E:\\my\\share\\my-share\\.nyc_output --reporter=lcov --reporter=clover --reporter=json\ntimedPromise.finally is not a function\n    at setExitHandler (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\node_modules\\execa\\lib\\kill.js:102:29)\n    at execa (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\node_modules\\execa\\index.js:100:22)\n    at coverageReport (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\task.js:138:12)\n    at invoke (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\task.js:37:14)\n    at C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:48:16\n    at tryCatcher (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Function.Promise.attempt.Promise.try (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\node_modules\\bluebird\\js\\release\\method.js:39:29)\n    at Object.wrapChildPromise (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:47:28)\n    at Object.wrap (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\task.js:43:8)\n    at execute (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\run_plugins.js:86:12)\n    at EventEmitter.ipc.on (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\run_plugins.js:136:5)\n    at emitThree (events.js:136:13)\n    at EventEmitter.emit (events.js:217:7)\n    at process.<anonymous> (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:25:29)\n    at emitTwo (events.js:126:13)\n    at process.emit (events.js:214:7)\n\nBecause this error occurred during a 'after all' hook we are skipping all of the remaining tests.",
+                "estack": "CypressError: cy.task('coverageReport') failed with the following error:\n\n> TypeError: Command failed: E:\\my\\share\\my-share\\node_modules\\.bin\\nyc report --report-dir ./coverage --temp-dir E:\\my\\share\\my-share\\.nyc_output --reporter=lcov --reporter=clover --reporter=json\ntimedPromise.finally is not a function\n    at setExitHandler (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\node_modules\\execa\\lib\\kill.js:102:29)\n    at execa (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\node_modules\\execa\\index.js:100:22)\n    at coverageReport (E:\\my\\share\\my-share\\node_modules\\@cypress\\code-coverage\\task.js:138:12)\n    at invoke (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\task.js:37:14)\n    at C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:48:16\n    at tryCatcher (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Function.Promise.attempt.Promise.try (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\node_modules\\bluebird\\js\\release\\method.js:39:29)\n    at Object.wrapChildPromise (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:47:28)\n    at Object.wrap (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\task.js:43:8)\n    at execute (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\run_plugins.js:86:12)\n    at EventEmitter.ipc.on (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\child\\run_plugins.js:136:5)\n    at emitThree (events.js:136:13)\n    at EventEmitter.emit (events.js:217:7)\n    at process.<anonymous> (C:\\Users\\dell\\AppData\\Local\\Cypress\\Cache\\3.4.0\\Cypress\\resources\\app\\packages\\server\\lib\\plugins\\util.js:25:29)\n    at emitTwo (events.js:126:13)\n    at process.emit (events.js:214:7)\n\nBecause this error occurred during a 'after all' hook we are skipping all of the remaining tests.\n    at Object.cypressErr (http://localhost:63670/__cypress/runner/cypress_runner.js:85007:11)\n    at Object.throwErr (http://localhost:63670/__cypress/runner/cypress_runner.js:84960:18)\n    at Object.throwErrByPath (http://localhost:63670/__cypress/runner/cypress_runner.js:84991:17)\n    at http://localhost:63670/__cypress/runner/cypress_runner.js:76208:23\n    at tryCatcher (http://localhost:63670/__cypress/runner/cypress_runner.js:134260:23)\n    at Promise._settlePromiseFromHandler (http://localhost:63670/__cypress/runner/cypress_runner.js:132278:31)\n    at Promise._settlePromise (http://localhost:63670/__cypress/runner/cypress_runner.js:132335:18)\n    at Promise._settlePromise0 (http://localhost:63670/__cypress/runner/cypress_runner.js:132380:10)\n    at Promise._settlePromises (http://localhost:63670/__cypress/runner/cypress_runner.js:132455:18)\n    at Async._drainQueue (http://localhost:63670/__cypress/runner/cypress_runner.js:129184:16)\n    at Async._drainQueues (http://localhost:63670/__cypress/runner/cypress_runner.js:129194:10)\n    at Async.drainQueues (http://localhost:63670/__cypress/runner/cypress_runner.js:129068:14)",
+                "diff": null
+              },
+              "uuid": "7f83c86e-0124-4232-956c-f8e352261d93",
+              "parentUUID": "e45de1f7-8322-4fcc-89a5-3855d7b1d80f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "7f83c86e-0124-4232-956c-f8e352261d93"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 8894,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/report/mochawesome-report",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.1.0"
+    }
+  }
+}
