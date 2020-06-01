@@ -1,0 +1,43 @@
+// 1.实现对象的get方法
+const data = {
+  a: 3,
+  hello: 'world'
+}
+
+// basic
+function get(o: object, name: string) {
+  return o[name]
+}
+
+// high
+function get<T extends object, K extends keyof T>(o: T, name: K): T[K] {
+  return o[name]
+}
+
+// array
+function get<T extends object, K extends keyof T>(o: T, name: K[]): T[K][] {
+  console.log(name.map(item => o[item]));   // [3, "world"]
+  return name.map(item => o[item]);
+}
+
+get(data, [ 'a', 'hello'])
+
+
+//2.如何写一个，Color 要么是 red 颜色，要么是 yellow 颜色。
+不推荐 -->
+interface Color {
+  red?: string,
+  yellow?: string,
+}
+
+推荐 -->
+type Color = { red: string, } | { yellow: string, }
+
+
+//3.typeof 自动判断类型
+const initA = {
+  inita: 123,
+  initb: 'aaa'
+}
+
+type initA = typeof initA;

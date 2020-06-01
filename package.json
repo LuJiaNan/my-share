@@ -28,8 +28,13 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^1.6.1",
+    "babel-plugin-istanbul": "^5.1.4",
     "codecov": "^3.3.0",
+    "core-js": "^2.6.5",
     "coveralls": "^3.0.3",
+    "cypress": "3.4.0",
+    "eslint-plugin-cypress": "^2.6.0",
     "express": "^4.16.2",
     "grunt": "^1.0.1",
     "grunt-autoprefixer": "^3.0.4",
@@ -45,29 +50,27 @@
     "grunt-zip": "~0.17.1",
     "istanbul": "^0.4.5",
     "istanbul-instrumenter-loader": "^3.0.1",
-    "karma-coverage": "^1.1.2",
-    "mustache": "^2.3.0",
-    "socket.io": "^1.7.3",
-    "webpack": "^4.38.0",
-
-
-    "@cypress/code-coverage": "^1.6.1",
-    "babel-plugin-istanbul": "^5.1.4",
-    "core-js": "^2.6.5",
-    "cypress": "3.4.0",
-    "eslint-plugin-cypress": "^2.6.0",
     "istanbul-lib-coverage": "^2.0.5",
+    "karma-coverage": "^1.1.2",
     "ls": "^0.2.1",
     "mocha": "5.2.0",
     "mochawesome": "^4.0.1",
     "mochawesome-merge": "^2.0.1",
+    "mustache": "^2.3.0",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
+    "socket.io": "^1.7.3",
+    "webpack": "^4.38.0",
     "yargs": "^13.3.0"
   },
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^13.13.0",
+    "axios": "^0.19.2",
     "cypress-image-snapshot": "^3.1.1",
-    "cypress-plugin-snapshots": "^1.2.6"
+    "cypress-plugin-snapshots": "^1.2.6",
+    "reflect-metadata": "^0.1.13",
+    "ts-import-plugin": "^1.6.5",
+    "typescript": "^3.8.3"
   }
 }
