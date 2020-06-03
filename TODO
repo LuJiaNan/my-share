@@ -24,8 +24,10 @@ https://zhuanlan.zhihu.com/p/33492169
 https://www.cnblogs.com/pqjwyn/p/9846292.html
 https://www.jianshu.com/p/1c266814b436
 angular inject 介绍
-https://www.jianshu.com/p/4b10948d456c
-https://www.jianshu.com/p/21f3f4834418
+https://www.jianshu.com/p/4b10948d456c(Angular依赖注入介绍)
+https://www.jianshu.com/p/21f3f4834418(angular 初认)
+
+https://developer.51cto.com/art/201909/603148.htm
 
  IoC是什么
 Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。如何理解好Ioc呢？理解好Ioc的关键是要明确“谁控制谁，控制什么，为何是反转（有反转就应该有正转了），哪些方面反转了”，那我们来深入分析一下：
@@ -72,16 +74,88 @@ DI—Dependency Injection，即“依赖注入”：是组件之间依赖关系�
 IoC和DI由什么关系呢？其实它们是同一个概念的不同角度描述，由于控制反转概念比较含糊（可能只是理解为容器控制对象这一个层面，很难让人想到谁来维护对象关系），所以2004年大师级人物Martin Fowler又给出了一个新的名字：“依赖注入”，相对IoC 而言，“依赖注入”明确描述了“被注入对象依赖IoC容器配置依赖对象”。
 
 
+依赖注入的优点
+依赖注入降低了依赖和被依赖类型间的耦合，在修改被依赖的类型实现时，不需要修改依赖类型的实现，同时，对于依赖类型的测试。依赖注入方式，可以将代码耦合性降到最低，而且各个模块拓展不会互相影响，
+
+实现数据访问层，也就是前端你的数据请求层
+模块与接口重构，依赖注入背后的一个核心思想是单一功能原则，这意味着这些对象在系统的任何地方都可以重用。
+随时增加单元测试，把功能封装到整个对象里面会导致自动测试困难或者不可能。将模块和接口与特定对象隔离，以这种方式重构可以执行更先进的单元测试。
 
 
+/
+import B from ''
+class A {
+    constructor(){
+        this.b = B
+    }
+    fn(){
+        B.fn()
+    }
+}
+A 依赖 B
+/
+class A {
+    constructor(B){
+        this.b = B
+    }
+    fn(){
+        this.B.fn()
+    }
+}
+new A(B)
+/
+B 注入 A
+
+概念 di， ioc 
+
+控制反转这里控制权从使用者本身转移到第三方容器上，而非是转移到被调用者上，这里需要明确不要疑惑。控制反转是一种思想，依赖注入是一种设计模式。
 
 
+面向对象有五大原则：单一职责、开闭原则、里氏替换、接口分离和依赖反转。依赖反转（Dependency Inversion），实体应该依赖于抽象而不是实现。也就是说高层次模块，不应该依赖于低层次模块，而是应该基于抽象。
 
 
+一、概念：依赖注入（DI）、控制反转（IOC）、IOC容器
+依赖注入（DI）和控制反转（IOC）基本是一个意思，因为说起来谁都离不开谁。
+简单来说，类A依赖类B，但A不控制B的创建和销毁，仅使用B，那么B的控制权则交给A之外处理，这叫控制反转（IOC）。
+由于A依赖于B，因此在A中必然要使用B的instance，我们可以通过A的构造函数将B的实例注入，比如：
+
+class B { }
+class A {
+  constructor(b: B) { 
+      console.log(b);
+  }
+}
+const b = new B();
+// 将B的实例注入到a中
+const a = new A(b);
+这个过程叫依赖注入（DI）。
+那么什么是IOC Container（容器）？
+在刚刚的例子中，将B的实例注入到A的构造函数中的这个过程是我们手动操作的，比较麻烦，特别是当类的关系变多变复杂时，这种方式显得很难维护。
+因此IOC容器就是为了解决这样的问题，IOC容器负责管理对象的生命周期、依赖关系等，实现对象的依赖查找以及依赖注入。
+比如Java的Spring以及前端@Angular框架的依赖注入器（DI）就是属于IOC容器。
 
 
+1.angular 中的di
+https://www.jianshu.com/p/21f3f4834418
+import { Component } from '@angular/core';
+
+@Component({
+  providers:[Logger]
+})
+export class ComponentA { }
+@component 一个装饰器，用于把某个类标记为 Angular 组件，并为它配置一些元数据，以决定该组件在运行期间该如何处理、实例化和使用。
+
+2.inversifyJs 中的di
+3.typescript 中的di https://www.jianshu.com/p/89249a3da84e
+4.java 中的di
+静态注入静态注入的本质是弄一个全局的大KV，key是那个Object的类，value就是new出来的所有Object。这时你编写代码的逻辑就是：创建这个大KV手工new或者通过静态方法创建第一个没有任何依赖的Object，并记录到大KV里手工new或者通过静态方法创建其他Object，如果创建时需要依赖已经创建好的Object，就从KV里取出来直接用所有的Object都创建完了，服务就可以启动了
+缺点：手工创建，Object一多难于管理创建顺序
+
+另一类被称为运行时注入，又叫做动态注入。代表是Spring和Guice。以Spring为例，你只需要定义两类信息：你要如何初始化Object（如何创建/单例、多例还是要弄个什么Factory/有没有自定义初始化代码等）你的Object依赖什么Object（可以通过class或者name来描述）其余的Spring都帮你直接搞定。使用Spring的程序一启动就开始根据当前的配置信息，classpath等各种静态 + 运行时信息帮你搞定一切。
 
 
+总结
+在JavaScript中依赖注入的概念不像Java中被经常提到，主要原因是在js中很容易就实现了这种动态依赖。其实我们大部分人都用过依赖注入，只是我们没有意识到。
 
 
 
