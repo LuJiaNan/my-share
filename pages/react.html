@@ -142,39 +142,39 @@
 					</section>		
 				</section>
 					<section>
-						<h6>并不只是props改变才会触发componentWillReceiveProps，父组件渲染就会执行，第一次渲染不触发,如果给每一个render函数增加特定key，react会认为这三次都是不同的渲染，都被定义为初始化第一次渲染，这种情况下不不会进入componentWillReceiveProps中。</h6>
+						<h6>并不只是props改变才会触发componentWillReceiveProps，父组件渲染就会执行，第一次渲染不触发,如果给每一个render函数增加特定key，react会认为这三次都是不同的渲染，都被定义为初始化第一次渲染，这种情况下不会进入componentWillReceiveProps中。</h6>
 						<h7>example 1</h7>
 						<section data-markdown>
 							<textarea data-templete>
 								```
-									class Component extends React.Component {
-										componentWillReceiveProps(nextProps) {
-											console.log('componentWillReceiveProps', nextProps.data.name);
-										}
-										render() {
-											return <div>{this.props.data.name}!</div>;
-										}
+								class Component extends React.Component {
+									componentWillReceiveProps(nextProps) {
+									  console.log("componentWillReceiveProps", nextProps.data.name);
 									}
-										
-									var container = document.getElementById('root');
-									
-									var mydata = {name: 'first-render'};
-									ReactDOM.render(<Componentt data={mydata}/>, container);
-									// ReactDOM.render(<Componentt data={mydata} key='1'/>, container);
-									mydata.name = 'second-render'
-									ReactDOM.render(<Componentt data={mydata}/>, container);
-									// ReactDOM.render(<Componentt data={mydata} key='2'/>, container);
-									mydata.name = 'third-render'
-									ReactDOM.render(<Componentt data={mydata}/>, container);
-									// ReactDOM.render(<Componentt data={mydata} key='3'/>, container);
+									render() {
+									  return <div>{this.props.data.name}!</div>;
+									}
+								  }
+								  
+								  var container = document.getElementById("container");
+								  
+								  var mydata = { name: "first-render" };
+								  // ReactDOM.render(<Component data={mydata} />, container);
+								  ReactDOM.render(<Component data={mydata} key="1" />, container);
+								  mydata.name = "second-render";
+								  // ReactDOM.render(<Component data={mydata} />, container);
+								  ReactDOM.render(<Component data={mydata} key="2" />, container);
+								  mydata.name = "third-render";
+								  // ReactDOM.render(<Component data={mydata} />, container);
+								  ReactDOM.render(<Component data={mydata} key="3" />, container);
 								```
 							</textarea>
 							<span class="fragment">
 								<p>third-render!</p>
 							</span>
 							<span class="fragment">
-								<p>componentWillReceiveProps test2</p>
-								<p>componentWillReceiveProps test3</p>
+								<p>componentWillReceiveProps second-render</p>
+								<p>componentWillReceiveProps third-render</p>
 							</span>
 						</section>
 					</section>
